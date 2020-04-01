@@ -1,0 +1,52 @@
+/* Hiding input numbers arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+    background-color: #e5e5e5;
+}
+
+.wrapper {
+    margin: 80px;
+}
+
+img {
+    
+    vertical-align: middle;
+    border-style: none;
+    margin-bottom: 12px;
+}
+
+.form-signin {
+    max-width: 380px;
+    margin: 0 auto; /* Stay in center always */
+    background-color: white; /* Color white */
+    padding: 15px 40px 50px; /* top right-left bottom */
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+    margin-bottom: 30px;
+}
+
+.form-signin input[type="number"], .form-signin input[type="password"] {
+    margin-bottom: 20px;
+}
+
+.form-signin .form-control {
+    padding: 10px;
+}

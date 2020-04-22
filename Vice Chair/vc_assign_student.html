@@ -1,0 +1,265 @@
+<html>
+
+<head>
+<title> Assign Student </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Script for search student -->
+
+<script>
+$(document).ready(function(){
+  $("#assigned-std-search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#assigned-std-table tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+  <script>
+$(document).ready(function(){
+  $("#unassigned-std-search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#unassigned-std-table tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<script> <!-- Script for Order by status -->
+function sortTable(status) {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("std-table-s");
+  switching = true;
+  
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[3];
+      y = rows[i + 1].getElementsByTagName("TD")[3];
+	  if(status=="ns"){
+		  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="s"){
+		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }		
+	}
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+
+<style>
+table.tt td{
+font-size:11px;
+text-align:center;
+}
+
+table,thead{
+  border: 1px solid #8e8b8b;
+}
+th, td  {
+  
+  border: 1px dashed #8e8b8b;
+}
+tr.ts-1 {
+background-color :#c2d8f9;
+}
+tr.ts-2 {
+background-color :#e1f1ff;
+}
+td.ts-3 {
+border: 1px solid #8e8b8b;
+}
+a.peginatin_tc{
+	text-color:#429ef5;
+}
+</style>
+  
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="#" color="white">HOME</a>
+				<a class="nav-link text-light active" href="vc_courses.html" color="white">COURSES</a>
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3">
+		<div class="container-fluid">
+			
+			<div class="container-fluid my-3">  
+				<div class="row">
+					<div class="col-12 ">
+								  
+							<table class="table table-bordered shadow-sm"> <!--********************** Advisor Info Panel *********************-->
+								<thead>
+									<tr>
+										<th rowspan="2"><img style="height:100px;display: block;margin-left: auto;margin-right: auto;" alt="PP"></th>
+										<th class="text-primary">Advisor Name</th>
+										<th class="text-primary">Number Of students: <a class="text-dark"> ## </a></th>
+									</tr>
+									<tr>
+										<th class="text-primary">Department</th>
+										<th class="text-primary">Avg student per advisor: <a class="text-dark"> ## </a></th>
+									</tr>
+								</thead>
+							</table>
+						
+					</div>
+				</div>
+				<input class="form-control" id="assigned-std-search" type="text" placeholder="Search from assigned student table..">
+				<br>
+				<div class="row">
+					<div class="col-3 "><h4>Assigned Students</h4></div> <!--********************** Assigned Students List *********************-->
+					<div class=" col-6"></div>
+					<div class=" col-3 form-group">
+					  <select  onChange="sortTable(this.value);" class="form-control" id="sel1">
+						<option disabled selected>Order</option>
+						<option value="s">Submited student first</option>
+						<option value="ns">Unsubmited student first</option>
+					  </select>
+					</div>
+				</div>
+				  <table id="std-table-s" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Student ID</th>
+							<th>Student Name</th>
+							<th>Semester</th>
+							<th>Registration Status</th>
+							<td align="center"><button type="button" class="btn btn-sm w-75 btn-primary">Unassign Students</button></td>
+						</tr>
+					</thead>
+					<tbody id="assigned-std-table">
+						<tr >
+							<td>17330110</td>
+							<td>Anil Ege Kara</td>
+							<td>z</td>
+							<td align="center" ><button type="button" class="btn btn-sm w-50 btn-success">Submited</button></td>
+							<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+						</tr>
+						<tr>
+							<td>17700283</td>
+							<td>Amina Ait Ben Ouissaden</td>
+							<td>b</td>
+							<td align="center" ><button type="button" class="btn btn-sm w-50 btn-primary">View Timetable</button></td>
+							<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+						</tr>
+						<tr >
+							<td>16450031</td>
+							<td>Eray Çoban</td>
+							<td>c</td>
+							<td align="center" ><button type="button" class="btn btn-sm w-50 btn-success">Submited</button></td>
+							<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+						</tr>
+						<tr >
+							<td>16000070</td>
+							<td>Berkan Ergil</td>
+							<td>c</td>
+							<td align="center"><button type="button" class="btn btn-sm w-50 btn-primary">View Timetable</button></td>
+							<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+						</tr>
+						<tr >
+							<td>17450019</td>
+							<td>Mehmet Taçyıldız</td>
+							<td>c</td>
+							<td align="center"><button type="button" class="btn btn-sm w-50 btn-primary">View Timetable</button></td>
+							<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+						</tr>
+					</tbody>
+				  </table>
+				
+				<hr>
+				<input class="form-control" id="unassigned-std-search" type="text" placeholder="Search from unassigned student table..">
+				<br>
+				<div class="row">
+					<div class="col-3 mb-2"><h4>Unassigned Students</h4></div> <!--********************** Unassigned Students List *********************-->
+					<div class=" col-6"></div>
+					<div class=" col-3 form-group">
+				<!--	  <select  onChange="sortTable(this.value);" class="form-control" id="sel1">
+						<option disabled selected>Order</option>
+						<option value="s">Least student first</option>
+						<option value="ns">Most student first</option>
+					  </select> -->
+					</div>
+				</div>
+				  <table id="std-table-s" class="table table-striped">
+					<thead>
+					  <tr>
+						<th>Student ID</th>
+						<th>Student Name</th>
+						<th>Semester</th>
+						<td align="center"><button type="button" class="btn btn-sm w-50 btn-primary">Assign Students</button></td>
+					  </tr>
+					</thead>
+					<tbody id="unassigned-std-table">
+					  <tr >
+						<td>17330110</td>
+						<td>Anil Ege Kara</td>
+						<td>z</td>
+						<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+					  </tr>
+					  <tr>
+						<td>17700283</td>
+						<td>Amina Ait Ben Ouissaden</td>
+						<td>b</td>
+						<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+					  </tr>
+					  <tr >
+						<td>16450031</td>
+						<td>Eray Çoban</td>
+						<td>c</td>
+						<td align="center" ><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+					  </tr>
+					  <tr >
+						<td>16000070</td>
+						<td>Berkan Ergil</td>
+						<td>c</td>
+						<td align="center"><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+					  </tr>
+					  <tr >
+						<td>17450019</td>
+						<td>Mehmet Taçyıldız</td>
+						<td>c</td>
+						<td align="center"><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
+					  </tr>
+					</tbody>
+				  </table>  
+			</div>
+				
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<html>
+
+<head>
+<title> Vice Chair </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Script for search student -->
+  <script>
+$(document).ready(function(){
+  $("#std-search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#std-table tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<script> <!-- Script for Order by status -->
+function sortTable(status) {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("std-table-s");
+  switching = true;
+  
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[3];
+      y = rows[i + 1].getElementsByTagName("TD")[3];
+	  if(status=="ns"){
+		  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="s"){
+		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+
+<style>
+table.tt td{
+font-size:11px;
+text-align:center;
+}
+
+table,thead{
+  border: 1px solid #8e8b8b;
+}
+th, td  {
+  
+  border: 1px dashed #8e8b8b;
+}
+tr.ts-1 {
+background-color :#c2d8f9;
+}
+tr.ts-2 {
+background-color :#e1f1ff;
+}
+td.ts-3 {
+border: 1px solid #8e8b8b;
+}
+a.peginatin_tc{
+	text-color:#429ef5;
+}
+</style>
+  
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="#" color="white">Advisors</a>
+				<a class="nav-link text-light active" href="vc_courses.html" color="white">COURSES</a>
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3">
+		<div class="container-fluid">
+			<div class="container-fluid my-3">  
+				<input class="form-control" id="std-search" type="text" placeholder="Search from table.."> <!--********************** Search *********************-->
+				<br>
+				<div class="row">
+					<div class="col-3 "><h4>Advisors</h4></div>
+					<div class=" col-6"></div>
+					<div class=" col-3 form-group">
+					  <select  onChange="sortTable(this.value);" class="form-control" id="sel1">
+						<option disabled selected>Order</option>
+						<option value="s">Least student first</option>
+						<option value="ns">Most student first</option>
+					  </select>
+					</div>
+				</div> 
+				<table id="std-table-s" class="table table-striped "> <!--********************** Advisor Tabel *********************-->
+					<thead>
+						<tr>
+							<th>Advisor</th>
+							<th>E-mail</th>
+							<th>Department</th>
+							<th>Number of student</th>
+							<th>Assign Student</th>
+						</tr>
+					</thead>
+					<tbody id="std-table">
+						<tr >
+							<td>Sample Advisor</td>
+							<td>Sample_emal@emu.edu.tr</td>
+							<td>Sample Department</td>
+							<td> 1 </td>
+							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
+						</tr>
+						<tr >
+							<td>Sample Advisor</td>
+							<td>Sample_emal@emu.edu.tr</td>
+							<td>Sample Department</td>
+							<td> 2 </td>
+							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
+						</tr>
+						<tr >
+							<td>Sample Advisor</td>
+							<td>Sample_emal@emu.edu.tr</td>
+							<td>Sample Department</td>
+							<td> 3 </td>
+							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
+						</tr>
+						<tr >
+							<td>Sample Advisor</td>
+							<td>Sample_emal@emu.edu.tr</td>
+							<td>Sample Department</td>
+							<td> 4 </td>
+							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
+						</tr>
+						<tr >
+							<td>Sample Advisor</td>
+							<td>Sample_emal@emu.edu.tr</td>
+							<td>Sample Department</td>
+							<td> 5 </td>
+							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div> 
+				<ul class="pagination pagination-lg justify-content-center"> <!--********************** Pagination List *********************-->
+					<li class="page-item"><a class="page-link peginatin_tc" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

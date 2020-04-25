@@ -23,7 +23,7 @@ $(document).ready(function(){
 
 <script> <!-- Script for Order by status -->
 function sortTable(status) {
-  var table, rows, switching, i, x, y, shouldSwitch;
+  var table, rows, switching, i, x, y,x2,y2,x3,y3,x4,y4, shouldSwitch;
   table = document.getElementById("std-table-s");
   switching = true;
   
@@ -34,13 +34,34 @@ function sortTable(status) {
       shouldSwitch = false;
       x = rows[i].getElementsByTagName("TD")[3];
       y = rows[i + 1].getElementsByTagName("TD")[3];
+	  x2 = rows[i].getElementsByTagName("TD")[2];
+	  y2 = rows[i + 1].getElementsByTagName("TD")[2];
+	  x3 = rows[i].getElementsByTagName("TD")[1];
+	  y3 = rows[i + 1].getElementsByTagName("TD")[1];
+	  x4 = rows[i].getElementsByTagName("TD")[0];
+	  y4 = rows[i + 1].getElementsByTagName("TD")[0];
 	  if(status=="ns"){
-		  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		  if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
 			shouldSwitch = true;
 			break;
 		  }
 	  }else if (status=="s"){
-		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="d"){
+		if (x2.innerHTML.toLowerCase() > y2.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="f"){
+		if (x3.innerHTML.toLowerCase() > y3.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="a"){
+		if (x4.innerHTML.toLowerCase() > y4.innerHTML.toLowerCase()) {
 			shouldSwitch = true;
 			break;
 		  }
@@ -99,7 +120,7 @@ a.peginatin_tc{
 		<div class="mainnav" > 
 			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
 				<a class="nav-link text-light active" href="#" color="white">Advisors</a>
-				<a class="nav-link text-light active" href="vc_courses.html" color="white">COURSES</a>
+				<a class="nav-link text-light active" href="vc_courses.html" color="white">Courses</a>
 			</nav>
 		</div>
 	</div>
@@ -114,6 +135,9 @@ a.peginatin_tc{
 					<div class=" col-3 form-group">
 					  <select  onChange="sortTable(this.value);" class="form-control" id="sel1">
 						<option disabled selected>Order</option>
+						<option value="a">A-Z Advisor Name</option>
+						<option value="f">A-Z Faculty</option>
+						<option value="d">A-Z Department</option>
 						<option value="s">Least student first</option>
 						<option value="ns">Most student first</option>
 					  </select>
@@ -122,60 +146,57 @@ a.peginatin_tc{
 				<table id="std-table-s" class="table table-striped "> <!--********************** Advisor Tabel *********************-->
 					<thead>
 						<tr>
-							<th>Advisor</th>
-							<th>E-mail</th>
+							<th>Advisor Name</th>
+							<th>Faculty</th>
 							<th>Department</th>
-							<th>Number of student</th>
+							<th># of student</th>
+							<th></th>
 							<th>Assign Student</th>
 						</tr>
 					</thead>
 					<tbody id="std-table">
 						<tr >
-							<td>Sample Advisor</td>
-							<td>Sample_emal@emu.edu.tr</td>
+							<td>z</td>
+							<td>A</td>
 							<td>Sample Department</td>
 							<td> 1 </td>
+							<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button>
 							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
 						</tr>
 						<tr >
 							<td>Sample Advisor</td>
-							<td>Sample_emal@emu.edu.tr</td>
+							<td>b</td>
 							<td>Sample Department</td>
 							<td> 2 </td>
+							<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button>
 							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
 						</tr>
 						<tr >
 							<td>Sample Advisor</td>
-							<td>Sample_emal@emu.edu.tr</td>
-							<td>Sample Department</td>
+							<td>Sample Faculty</td>
+							<td>c</td>
 							<td> 3 </td>
+							<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button>
 							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
 						</tr>
 						<tr >
 							<td>Sample Advisor</td>
-							<td>Sample_emal@emu.edu.tr</td>
-							<td>Sample Department</td>
+							<td>Sample Faculty</td>
+							<td>d</td>
 							<td> 4 </td>
+							<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button>
 							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
 						</tr>
 						<tr >
-							<td>Sample Advisor</td>
-							<td>Sample_emal@emu.edu.tr</td>
+							<td>a</td>
+							<td>Sample Faculty</td>
 							<td>Sample Department</td>
 							<td> 5 </td>
+							<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button>
 							<td align="center" ><button type="button" class="btn btn-sm btn-success" style="width:140px">Manage Students</button></td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div> 
-				<ul class="pagination pagination-lg justify-content-center"> <!--********************** Pagination List *********************-->
-					<li class="page-item"><a class="page-link peginatin_tc" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>

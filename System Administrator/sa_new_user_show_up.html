@@ -1,0 +1,201 @@
+<html>
+
+<head>
+<title> System Administrator </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+<style>
+
+</style>
+  
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="#" color="white">HOME</a>
+				
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3"> <!-- ********************************User Show Up Panel******************************** -->
+		<div class="container bg-light rounded border mb-4">
+			<div class="row">
+				<div class="col-md-4">
+					<img src="https://stdportal.emu.edu.tr/ogrresimgetir2.aspx?img=17330110&RESIM=OGR" class="bg-muted rounded mx-auto my-2 img-thumbnail" style="height:200px;width:150px;"></img>
+				</div>
+				<div class="col-md-8 my-2">
+					<div>
+						<h5>Name & Surname</h5>
+						<h6>Role</h6>
+					</div>
+					<div>
+						<div>
+							<div class="row mt-4">
+								<div class="col-md-12">
+									<strong>Role Id : </strong><a>00000000</a>
+								</div>
+							</div>
+							<div class="row mt-1">
+								<div class="col-md-6">
+									<strong>Email : </strong><a>SampleEmail@gmail.com</a>
+								</div>
+								<div class="col-md-6">
+									<strong>Phone : </strong><a>0000000000000</a>
+								</div>
+							</div>
+							<div class="row mt-1">
+								<div class="col-md-6">
+									<strong>Country : </strong><a>Sample Country</a>
+								</div>
+								<div class="col-md-6">
+									<strong>Faculty : </strong><a>Sample Faculty</a>
+								</div>
+							</div>
+							<div class="row mt-1">
+								<div class="col-md-6">
+									<strong>Department : </strong><a>Sample Department</a>
+								</div>
+								<div class="col-md-6">
+									<strong>Program : </strong><a>Sample Program</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="container nav nav-tabs nav-justified pl-3"> <!-- ********************************Nav Bar******************************** -->
+			<li class="nav-item">
+				<a class="nav-link bg-light border border-primary border-bottom-0" href="#" >Create User</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link bg-light border" href="#" >Users</a>
+			</li>
+		</ul>
+		<div class="container bg-light rounded border"> <!-- ********************************Create User Panel******************************** -->
+			<div class="row">
+				<div class="col-md-12 mt-3">
+					<h4>New User Informations</h4>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form>
+					  <div class="form-group row">
+						<label for="name_and_surname" class="col-4 col-form-label">Name & Surname <a class="text-danger">*</a></label> 
+						<div class="col-4">
+						  <input id="name" name="name" placeholder="Name" class="form-control here" required="required" type="text">
+						</div>
+						<div class="col-4">
+						  <input id="surname" name="surname" placeholder="Surname" class="form-control here" required="required" type="text">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="password" class="col-4 col-form-label">Password <a class="text-danger">*</a></label> 
+						<div class="col-4">
+						  <input id="password" name="password" placeholder="Password" class="form-control here" required="required" type="text">
+						</div>
+						<div class="col-4">
+						  <input id="password_check" name="password_check" placeholder="Password Check" class="form-control here" required="required" type="text">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="phone_no" class="col-4 col-form-label">Phone Number <a class="text-danger">*</a> & Country <a class="text-danger">*</a></label> 
+						<div class="col-4">
+						  <input id="phone_no" name="phone_no" placeholder="Ex : 90 555 555 55 55" class="form-control here" required="required" type="tel" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}||[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}">
+						</div>
+						<div class="col-4">
+						  <input list="country" class="custom-select"  value="" id="" required="required">
+							<datalist id="country">
+								<option value="Sample country">
+								<option value="Sample country">
+								<option value="Sample country">
+								<option value="Sample country">
+							</datalist>
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="email" class="col-4 col-form-label">Email <a class="text-danger">*</a></label> 
+						<div class="col-8">
+						  <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="role" class="col-4 col-form-label">Role <a class="text-danger">*</a></label> 
+						<div class="col-8">
+							<select id="select" name="select" class="custom-select">
+								<option value="">Student</option>
+								<option value="">Advisor</option>
+								<option value="">Vice Chair</option>
+								<option value="">Vice Dean</option>
+								<option value="">System Administrator</option>
+							</select>
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="faculty" class="col-4 col-form-label">Faculty <a class="text-danger">*</a> & Department <a class="text-danger">*</a></label> 
+						<div class="col-4">
+							<select id="select" name="select" class="custom-select">
+								<option value="">Student</option>
+								<option value="">Advisor</option>
+								<option value="">Vice Chair</option>
+								<option value="">Vice Dean</option>
+								<option value="">System Administrator</option>
+							</select>
+						</div>
+						<div class="col-4">
+							<select id="select" name="select" class="custom-select">
+								<option value="">Student</option>
+								<option value="">Advisor</option>
+								<option value="">Vice Chair</option>
+								<option value="">Vice Dean</option>
+								<option value="">System Administrator</option>
+							</select>
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="program" class="col-4 col-form-label">Program <a class="text-danger">*</a></label> 
+						<div class="col-8">
+							<select id="select" name="select" class="custom-select">
+								<option value="">Student</option>
+								<option value="">Advisor</option>
+								<option value="">Vice Chair</option>
+								<option value="">Vice Dean</option>
+								<option value="">System Administrator</option>
+							</select>
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<div class="offset-4 col-8">
+						  <button name="submit" type="submit" class="btn btn-primary">Create User</button>
+						</div>
+					  </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

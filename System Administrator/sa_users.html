@@ -1,0 +1,450 @@
+<html>
+
+<head>
+<title> Student Administrator </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+	<!-- Script for search student -->
+	<script>
+		$(document).ready(function(){
+		  $("#std-search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#std-table tr").filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		});
+	</script>
+	<!-- Script for search Advisor -->
+	<script>
+		$(document).ready(function(){
+		  $("#advisor-search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#advisor-table tr").filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		});
+	</script>
+	<!-- Script for search Vice Chair -->
+	<script>
+		$(document).ready(function(){
+		  $("#vc-search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#vc-table tr").filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		});
+	</script>
+	<!-- Script for search Vice Dean -->
+	<script>
+		$(document).ready(function(){
+		  $("#vd-search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#vd-table tr").filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		});
+	</script>
+	<!-- Script for search System Administrator -->
+	<script>
+		$(document).ready(function(){
+		  $("#sa-search").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#sa-table tr").filter(function() {
+			  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		});
+	</script>
+	<!-- Script for Modal -->
+	<script> 
+		function modal(row_count,role) {
+			var name = document.getElementById("std-table").rows[row_count].cells[1].innerHTML;
+			document.getElementById("un_modal").innerHTML = name ;
+			document.getElementById("cRole_modal").innerHTML = role ;
+		}
+	</script>
+<style>
+
+</style>
+  
+</head>
+
+<body>
+
+<div class="main h-100">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="#" color="white">HOME</a>
+				
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3">
+		<ul class="container nav nav-tabs nav-justified pl-3"> <!-- ********************************Nav Bar******************************** -->
+			<li class="nav-item">
+				<a class="nav-link bg-light border" href="#" >Create User</a>
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link bg-light border border-primary border-bottom-0" href="#" >Users</a>
+			</li>
+		</ul>
+		<div class="container bg-light rounded border h-100">
+			<div class="row h-100">
+				<div class="col-md-12">
+					<form>
+					  <!-- ********************************Sub Nav tabs******************************** -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#student">Student</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#advisor">Advisor</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#vice_chair">Vice Chair</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#vice_dean">Vice Dean</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#system_administrator">System Administrator</a>
+							</li>
+						</ul>
+
+						  <!-- ********************************Tab panes******************************** -->
+						<div class="tab-content">
+							<div id="student" class="container tab-pane active"><br> <!--********************** Student Tab *********************-->
+								<div class="row">
+									<div class="col-6 pb-2"><h4>Students</h4></div> 
+									<div class=" col-6"><input class="form-control" id="department-std-search" type="text" placeholder="Search ..."></div>
+								</div>
+								  <table id="" class="table table-striped">
+									<thead>
+										<tr>
+											<th>Student ID</th>
+											<th>Student Name</th>
+											<th>Faculty</th>
+											<th>Department</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="std-table">
+										<tr >
+											<td>17330110</td>
+											<td>Anil Ege Kara</td>
+											<td>z</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(0,'Student')"  data-toggle="modal" data-target="#myModal" >Edit Role</button></td>
+										</tr>
+										<tr>
+											<td>17700283</td>
+											<td>Amina Ait Ben Ouissaden</td>
+											<td>b</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(1,'Student')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16450031</td>
+											<td>Eray Çoban</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(2,'Student')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16000070</td>
+											<td>Berkan Ergil</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(3,'Student')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>17450019</td>
+											<td>Mehmet Taçyıldız</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(4,'Student')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+									</tbody>
+								  </table>
+							</div>
+							<div id="advisor" class="container tab-pane fade"><br> <!--********************** Advisor Tab *********************-->
+								<div class="row">
+									<div class="col-6 pb-2"><h4>Students</h4></div> 
+									<div class=" col-6"><input class="form-control" id="advisor-search" type="text" placeholder="Search ..."></div>
+								</div>
+								  <table id="" class="table table-striped">
+									<thead>
+										<tr>
+											<th>Advisor ID</th>
+											<th>Advisor Name</th>
+											<th>Faculty</th>
+											<th>Department</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="advisor-table">
+										<tr >
+											<td>17330110</td>
+											<td>Anil Ege Kara</td>
+											<td>z</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(0,'Advisor')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr>
+											<td>17700283</td>
+											<td>Amina Ait Ben Ouissaden</td>
+											<td>b</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(1,'Advisor')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16450031</td>
+											<td>Eray Çoban</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(2,'Advisor')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16000070</td>
+											<td>Berkan Ergil</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(3,'Advisor')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>17450019</td>
+											<td>Mehmet Taçyıldız</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(4,'Advisor')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+									</tbody>
+								  </table>
+							</div>
+							<div id="vice_chair" class="container tab-pane fade"><br> <!--********************** Vice Chair Tab *********************-->
+								<div class="row">
+									<div class="col-6 pb-2"><h4>Vice Chairs</h4></div> 
+									<div class=" col-6"><input class="form-control" id="vc-search" type="text" placeholder="Search ..."></div>
+								</div>
+								  <table id="" class="table table-striped">
+									<thead>
+										<tr>
+											<th>Vice Chairs ID</th>
+											<th>Vice Chairs Name</th>
+											<th>Faculty</th>
+											<th>Department</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="vc-table">
+										<tr >
+											<td>17330110</td>
+											<td>Anil Ege Kara</td>
+											<td>z</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(0,'Vice Chair')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr>
+											<td>17700283</td>
+											<td>Amina Ait Ben Ouissaden</td>
+											<td>b</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(1,'Vice Chair')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16450031</td>
+											<td>Eray Çoban</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(2,'Vice Chair')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16000070</td>
+											<td>Berkan Ergil</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(3,'Vice Chair')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>17450019</td>
+											<td>Mehmet Taçyıldız</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(4,'Vice Chair')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+									</tbody>
+								  </table>
+							</div>
+							<div id="vice_dean" class="container tab-pane fade"><br> <!--********************** Vice Dean Tab *********************-->
+								<div class="row">
+									<div class="col-6 pb-2"><h4>Vice Chairs</h4></div> 
+									<div class=" col-6"><input class="form-control" id="vd-search" type="text" placeholder="Search ..."></div>
+								</div>
+								  <table id="" class="table table-striped">
+									<thead>
+										<tr>
+											<th>Vice Dean ID</th>
+											<th>Vice Dean Name</th>
+											<th>Faculty</th>
+											<th>Department</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="vd-table">
+										<tr >
+											<td>17330110</td>
+											<td>Anil Ege Kara</td>
+											<td>z</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(0,'Vice Dean')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr>
+											<td>17700283</td>
+											<td>Amina Ait Ben Ouissaden</td>
+											<td>b</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(1,'Vice Dean')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16450031</td>
+											<td>Eray Çoban</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(2,'Vice Dean')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16000070</td>
+											<td>Berkan Ergil</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(3,'Vice Dean')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>17450019</td>
+											<td>Mehmet Taçyıldız</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(4,'Vice Dean')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+									</tbody>
+								  </table>
+							</div>
+							<div id="system_administrator" class="container tab-pane fade"><br> <!--********************** System Administrator Tab *********************-->
+								<div class="row">
+									<div class="col-6 pb-2"><h4>System Administrators</h4></div> 
+									<div class=" col-6"><input class="form-control" id="sa-search" type="text" placeholder="Search ..."></div>
+								</div>
+								  <table id="" class="table table-striped">
+									<thead>
+										<tr>
+											<th>Sys. Administrator ID</th>
+											<th>Sys. Administrator Name</th>
+											<th>Faculty</th>
+											<th>Department</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="sa-table">
+										<tr >
+											<td>17330110</td>
+											<td>Anil Ege Kara</td>
+											<td>z</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(0,'System Administrator')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr>
+											<td>17700283</td>
+											<td>Amina Ait Ben Ouissaden</td>
+											<td>b</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(1,'System Administrator')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16450031</td>
+											<td>Eray Çoban</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(2,'System Administrator')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>16000070</td>
+											<td>Berkan Ergil</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(3,'System Administrator')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+										<tr >
+											<td>17450019</td>
+											<td>Mehmet Taçyıldız</td>
+											<td>c</td>
+											<td>z</td>
+											<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Show More</button><button type="button" class="btn btn-sm btn-primary ml-1" onclick="modal(4,'System Administrator')"  data-toggle="modal" data-target="#myModal">Edit Role</button></td>
+										</tr>
+									</tbody>
+								  </table>
+							</div>
+						</div>
+						
+						<!-- The Modal -->
+						<div class="modal" id="myModal">
+						  <div class="modal-dialog">
+							<div class="modal-content">
+
+							  <!-- Modal Header -->
+							  <div class="modal-header">
+								<h4 class="modal-title">Change Role</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							  </div>
+
+							  <!-- Modal body -->
+							  <div class="modal-body">
+									<h5 id='un_modal'>Name</h5><br> 
+									<a>Current Role :</a> <a id='cRole_modal'></a><br> <br> 
+									<h6>Change to :</h6> 
+									<select id='select' name='select' class='custom-select'> 
+										<option value=''>Student</option> 
+										<option value=''>Advisor</option> 
+										<option value=''>Vice Chair</option> 
+										<option value=''>Vice Dean</option> 
+										<option value=''>System Administrator</option> 
+									</select> 
+							  </div>
+
+							  <!-- Modal footer -->
+							  <div class="modal-footer">
+								<button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+							  </div>
+
+							</div>
+						  </div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

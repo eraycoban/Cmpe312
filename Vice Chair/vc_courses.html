@@ -23,7 +23,7 @@ $(document).ready(function(){
 
 <script> <!-- Script for Order by status -->
 function sortTable(status) {
-  var table, rows, switching, i, x, y, shouldSwitch;
+  var table, rows, switching, i, x, y, x2, y2, shouldSwitch;
   table = document.getElementById("std-table-s");
   switching = true;
   
@@ -32,15 +32,22 @@ function sortTable(status) {
     rows = table.rows;
     for (i = 1; i < (rows.length - 1); i++) {
       shouldSwitch = false;
-      x = rows[i].getElementsByTagName("TD")[4];
-      y = rows[i + 1].getElementsByTagName("TD")[4];
-	  if(status=="ns"){
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+	  x1 = rows[i].getElementsByTagName("TD")[3];
+      y1 = rows[i + 1].getElementsByTagName("TD")[3];
+	  if(status=="a"){
 		  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 			shouldSwitch = true;
 			break;
 		  }
-	  }else if (status=="s"){
-		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+	  }else if (status=="d"){
+		if (x1.innerHTML.toLowerCase() < y1.innerHTML.toLowerCase()) {
+			shouldSwitch = true;
+			break;
+		  }
+	  }else if (status=="i"){
+		if (x1.innerHTML.toLowerCase() > y1.innerHTML.toLowerCase()) {
 			shouldSwitch = true;
 			break;
 		  }
@@ -53,7 +60,6 @@ function sortTable(status) {
   }
 }
 </script>
-
 <style>
 table.tt td{
 font-size:11px;
@@ -96,7 +102,7 @@ border: 1px solid #8e8b8b;
 		<div class="mainnav" > 
 			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
 				<a class="nav-link text-light active" href="vice_chair.html" color="white">Advisors</a>
-				<a class="nav-link text-light active" href="#" color="white">COURSES</a>
+				<a class="nav-link text-light active" href="#" color="white">Courses</a>
 			</nav>
 		</div>
 	</div>
@@ -107,102 +113,60 @@ border: 1px solid #8e8b8b;
 				<input class="form-control" id="std-search" type="text" placeholder="Search from table..">
 				<br>
 				<div class="row">
-					<div class="col-3 "><h4>Number of Student : #</h4></div>
-					<div class=" col-6"></div>
+					<div class="col-6 "><h4>Department Name Courses:</h4></div>
+					<div class=" col-3"></div>
 					<div class=" col-3 form-group">
-					  <select  onChange="sortTable(this.value);" class="form-control" id="sel1">
-						<option disabled selected>Order</option>
-						<option value="s">Submited Student Firs</option>
-						<option value="ns">Not Submited Student First</option>
-					  </select>
+						<select  onChange="sortTable(this.value);" class="form-control" id="sel1">
+							<option disabled selected>Order By</option>
+							<option value="a">Course Code</option>
+							<option value="i">Increasing Semester</option>
+							<option value="d">Decreasing Semester</option>
+						</select>
 					</div>
 				</div>
 				<table id="std-table-s" class="table table-striped "> <!--********************** Course List *********************-->
 					<col>
-					<col  class="w-25">
 					<col>
-					<col class="w-25">
-					<col  class="w-25">
+					<col>
+					<col>
+					<col>
 					<thead>
 						<tr>
 							<th>Course Code</th>
 							<th>Course Name</th>
-							<th>Course Lecturer</th>
-							<th>Course Description</th>
-							<th>Course Status</th>
+							<th>Course Program</th>
+							<th>Course Semester</th>
+							<td align="center"><button style="width:130px" type="button" class="btn btn-sm mx-1 btn-success">Add New Course</button></td>
 						</tr>
 					</thead>
 					<tbody id="std-table">
 						<tr >
-							<td>CMPE ###</td>
-							<td>SAMPLE COURSE NAME</td>
-							<td>LORE IPSUM</td>
-							<td>
-								<div class="scroll">
-									<a>LORE IPSUM</a><br>
-								</div>
-							</td>
-							<td align="center" ><button type="button" class="btn btn-sm w-25 btn-success">Submited</button></td>
-						</tr>
-						<tr>
-							<td>17700283</td>
-							<td>Amina Ait Ben Ouissaden</td>
-							<td>b</td>
-							<td>
-								<div class="form-group">
-									<select  class="form-control" id="">
-										<option disabled selected>Set Advisor</option>
-										<option >Sample Advisor</option>
-										<option >Sample Advisor</option>
-									</select>
-								</div>
-							</td>
-							<td align="center" ><button type="button" class="btn btn-sm w-25 btn-primary">Submit</button></td>
+							<td><div class="overflow-auto" style="max-height:80px">CMPE 1</div></td>
+							<td>Sample COURSE NAME</td>
+							<td>Sample Program</td>
+							<td>1</a></td> <!--********************** Under this line, there are 3 button first more info:opens a window "course_information.html, second Edit : it same with add new course but text box will be filled , thir delete" *********************-->
+							<td align="center" ><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.html" onclick="window.open('course_information.html', 'newwindow', 'width=820, height=400'); return false;">More Information</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-primary">Edit</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-danger">Delete</button></td>
 						</tr>
 						<tr >
-							<td>16450031</td>
-							<td>Eray Çoban</td>
-							<td>c</td>
-							<td>
-								<div class="form-group">
-									<select  class="form-control" id="">
-										<option disabled selected>Set Advisor</option>
-										<option >Sample Advisor</option>
-										<option >Sample Advisor</option>
-									</select>
-								</div>
-							</td>
-							<td align="center" ><button type="button" class="btn btn-sm w-25 btn-success">Submited</button></td>
-						</tr>
-						<tr>
-							<td>16000070</td>
-							<td>Berkan Ergil</td>
-							<td>c</td>
-							<td>
-								<div class="form-group">
-									<select  class="form-control" id="">
-										<option disabled selected>Set Advisor</option>
-										<option >Sample Advisor</option>
-										<option >Sample Advisor</option>
-									</select>
-								</div>
-							</td>
-							<td align="center"><button type="button" class="btn btn-sm w-25 btn-primary">Submit</button></td>
+							<td><div class="overflow-auto" style="max-height:80px">CMPE 3</div></td>
+							<td>Sample COURSE NAME</td>
+							<td>Sample Program</td>
+							<td>3</td>
+							<td align="center" ><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.html" onclick="window.open('course_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-primary">Edit</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-danger">Delete</button></td>
 						</tr>
 						<tr >
-							<td>17450019</td>
-							<td>Mehmet Taçyıldız</td>
-							<td>c</td>
-							<td>
-								<div class="form-group">
-									<select  class="form-control" id="">
-										<option disabled selected>Set Advisor</option>
-										<option >Sample Advisor</option>
-										<option >Sample Advisor</option>
-									</select>
-								</div>
-							</td>
-							<td align="center"><button type="button" class="btn btn-sm w-25 btn-primary">Submit</button></td>
+							<td><div class="overflow-auto" style="max-height:80px">CMPE 2</div></td>
+							<td>Sample COURSE NAME</td>
+							<td>Sample Program</td>
+							<td>2</td>
+							<td align="center" ><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.html" onclick="window.open('course_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-primary">Edit</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-danger">Delete</button></td>
+						</tr>
+						<tr >
+							<td><div class="overflow-auto" style="max-height:80px">CMPE 4</div></td>
+							<td>Sample COURSE NAME</td>
+							<td>Sample Program</td>
+							<td>4</td>
+							<td align="center" ><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.html" onclick="window.open('course_information.html', 'newwindow', 'width=820, height=242'); return false;">More Information</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-primary">Edit</button><button style="width:60px" type="button" class="btn btn-sm mx-1 btn-danger">Delete</button></td>
 						</tr>
 					</tbody>
 				</table>

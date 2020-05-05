@@ -1,0 +1,151 @@
+<html>
+
+<head>
+<title> VC Add Course </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+<style>
+table.tt td{
+font-size:11px;
+text-align:center;
+}
+
+table,thead{
+  border: 1px solid #8e8b8b;
+}
+th, td  {
+  
+  border: 1px dashed #8e8b8b;
+}
+tr.ts-1 {
+background-color :#c2d8f9;
+}
+tr.ts-2 {
+background-color :#e1f1ff;
+}
+td.ts-3 {
+border: 1px solid #8e8b8b;
+}
+table.table-bordered{
+    border:2px solid white;
+  }
+</style>
+  
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="vice_chair.html" color="white">Advisors</a>
+				<a class="nav-link text-light active" href="#" color="white">Courses</a>
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3">
+		<div class="container-fluid">
+			
+			<div class="container bg-light border rounded my-3">  
+				<br>
+				<div class="row">
+					<div class="col-12">
+						<form>
+						  <div class="form-group row">
+							<label for="username" class="col-4 col-form-label">Course Code :</label> 
+							<div class="col-8">
+							  <input id="username" name="username" placeholder="Course Code ..." class="form-control here" required="required" type="text">
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<label for="username" class="col-4 col-form-label">Course Name :</label> 
+							<div class="col-8">
+							  <input id="name" name="name" placeholder="Course Name ..." class="form-control here" type="text">
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<label for="select" class="col-4 col-form-label">How many groups will have ?</label> 
+							<div class="col-8">
+								<select id="select" name="select" class="custom-select">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<label for="publicinfo" class="col-4 col-form-label">Course Description:</label> 
+							<div class="col-8">
+							  <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<div class="offset-4 col-8">
+							  <button name="submit" type="submit" class="btn btn-primary">Continue</button>
+							</div>
+						  </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+</body>
+
+<script> <!-- ***************************** TOOL TIP SCRIPT ***************************** -->
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script> <!-- ***************************** ADD NEW Lesson HOUR SCRIPT ***************************** -->
+var row_count = 0;
+function new_lesson_Function() {
+	var table = document.getElementById("new_lesson");
+	var row = table.insertRow(row_count);
+	var cell0 = row.insertCell(0);
+	var cell1 = row.insertCell(1);
+	var cell2 = row.insertCell(2);
+	cell0.innerHTML = ( <!-- ***************************** col HTML ***************************** -->
+						""
+);
+	cell1.innerHTML = ( <!-- ***************************** col HTML ***************************** -->
+						"Group "+(row_count+1)
+);
+	cell2.innerHTML = ( <!-- ***************************** col HTML ***************************** -->
+						"button"
+);
+	row_count++;
+}
+<!-- ***************************** DELETE ROW SCRIPT ***************************** -->
+function deleteLesson_Function() {
+	var table = document.getElementById("new_lesson");
+	var last_row = table.rows.length;
+	document.getElementById("new_lesson").deleteRow(last_row-2);
+	row_count--;
+}
+</script>
+</html>

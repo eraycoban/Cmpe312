@@ -28,9 +28,7 @@ function displaySemCourses($sem_id){
 }
 
 
-if(isset($_POST['select'])){
-	header("Location: course_group.php");
-}
+
 
 ?>
 
@@ -137,7 +135,7 @@ color:red;
 						<tbody>
 							<tr>
 							<td rowspan="2" ><img src="#" alt="PP"></td>
-							<td><?php echo $student[0]["name"];?></td></td></td>
+							<td><?php echo $student[0]["name"]." ".$student[0]["surname"];?></td></td></td>
 							<td style="text-align:right"><b>ID :</b></td>
 							<td><?php echo $student[0]["s_id"];?></td>
 							</tr>
@@ -377,16 +375,16 @@ color:red;
 						</div>
 						<div id="collapseOne" class="collapse" data-parent="#accordion"> <?php foreach ($c as $crs) { ?>
 
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example">  <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse"><?php echo $crs['course_code']."-----".$crs['course_name'];?> <i class="fa fa-caret-down"></i> </button>
-								<form action="" method="post">
+							<div class="bb btn-group btn-block" role="group" aria-label="Basic example">  <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">
+								<?php echo $crs['course_code']."-----".$crs['course_name']; $course_code =$crs['course_code']; ?>
+								 <i class="fa fa-caret-down"></i> </button>
+								<form action="course_group.php" method="post">
 								    <input type="submit" class="btn btn-light btn-secondary border-primary rounded-right" name="select" value="select" />
+										<input type="hidden" name="course_code" value="<?php echo $course_code; ?>"/>
 								</form>
 
 									 <!-- <button type="button" name="select" value="select" class="btn btn-light btn-secondary border-primary rounded-right"> Select </button> </form></div> -->
 							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-
-
-
 
 							<!-- <div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse" disabled></button> <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right" disabled>Select</button> </div>
 							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>

@@ -139,7 +139,7 @@ button.btn:focus,.btn:active {
 							<tbody>
 							  <tr>
 								<td rowspan="2" ><img src="#" alt="PP"></td>
-								<td><?php echo $student[0]["name"];?></td></td></td>
+								<td><?php echo $student[0]["name"]." ".$student[0]["surname"];?></td></td></td>
 								<td style="text-align:right"><b>ID :</b></td>
 								<td><?php echo $student[0]["s_id"];?></td>
 							  </tr>

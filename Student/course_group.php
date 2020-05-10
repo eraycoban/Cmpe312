@@ -1,0 +1,476 @@
+<?php
+
+include "../config.php";
+
+
+// logout and go to login page
+if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
+	session_destroy();
+	header("Location: ../index.php");
+}
+
+$user_id=$_SESSION["user_id"];
+
+$user=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+$student=$db->query("SELECT * FROM student WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+$advisor=$db->query("SELECT * FROM advises JOIN instructor WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+//$course=$db->query("SELECT * FROM course")->fetchAll(PDO::FETCH_ASSOC);
+
+
+$crs_code=$_POST["course_code"];
+$sel_crs= "'".$crs_code."'";
+//echo $str_crs."<br/>";;
+$selectedCourse=$db->query("SELECT * FROM course WHERE course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
+//echo $selectedCourse[0]["course_code"]."<br/>";
+
+
+
+$takes=$db->query("SELECT * FROM takes JOIN course WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+//$chosen=$takes[0]["group_id"];
+//$chosen=$takes[0]["group_id"];
+$group=$db->query("SELECT * FROM groupst JOIN course ON groupst.course_code = course.course_code WHERE course.course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
+$var=$group[0]["i_id"];
+
+$groupst=$db->query("SELECT * FROM instructor WHERE i_id=$var")->fetchAll(PDO::FETCH_ASSOC);
+//AND groupst.course_code = course.course_code WHERE
+
+//chosen course index display inside takes[courseIndex]
+//chosen course should influence all displayed things
+//$courseIndex=
+
+
+echo "<a href='?operation=logout'>LOGOUT</a>";
+
+?>
+
+<html>
+
+<head>
+<title> EMU PORTAL </title>
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+<style>
+table.tt td{
+font-size:11px;
+text-align:center;
+}
+
+table,thead{
+  border: 1px solid #8e8b8b;
+}
+th, td  {
+
+  border: 1px dashed #8e8b8b;
+}
+tr.ts-1 {
+background-color :#c2d8f9;
+}
+tr.ts-2 {
+background-color :#e1f1ff;
+}
+td.ts-3 {
+border: 1px solid #8e8b8b;
+}
+div ,button.bb{
+border-bottom: 1px solid #0000;
+text-align:left;
+}
+button.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  & > [class^="col-"],
+  & > [class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" >
+		<div class="container-fluid  ">
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+
+		</div>
+	</div>
+	<div class="">
+		<div class="mainnav" >
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="#" color="white">HOME</a>
+
+			</nav>
+		</div>
+	</div>
+
+	<div class="row no-gutters" > <!-- MAIN ROW -->
+		<div class="col-7">
+
+			<div class="mt-3 container-fluid">
+				<div class="row">
+					<div class="col-12 ">
+
+							<!--Student information panel-->
+
+						  <table class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
+							<tbody>
+							  <tr>
+								<td rowspan="2" ><img src="#" alt="PP"></td>
+								<td><?php echo $student[0]["name"];?></td></td></td>
+								<td style="text-align:right"><b>ID :</b></td>
+								<td><?php echo $student[0]["s_id"];?></td>
+							  </tr>
+							  <tr>
+
+								<td><?php echo $student[0]["department"];?></td>
+								<td style="text-align:right "><b>GPA :</b></td>
+								<td><?php echo $student[0]["GPA"];?></td>
+							  </tr>
+							  <tr>
+								<td style="text-align:right"><b>Advisor :</b></td>
+								<td><?php echo $advisor[0]["name"];?></td>
+								<td style="text-align:right"><b>CGPA :</b></td>
+								<td><?php echo $student[0]["CGPA"];?></td>
+							  </tr>
+							  <tr>
+								<td></td>
+								<td><?php echo $advisor[0]["email"];?></td>
+								<td colspan="2"></td>
+							  </tr>
+							</tbody>
+						  </table>
+
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+
+					<!--Timetable-->
+
+					<div class="col-12">
+						<table class="table table-sm tt shadow-lg">
+							<thead>
+							  <col width="%10">
+							  <col width="%15">
+							  <col width="%15">
+							  <col width="%15">
+							  <col width="%15">
+							  <col width="%15">
+							  <col width="%15">
+							  <tr>
+								<th>Period <br> Saat</th>
+								<th>Monday <br> Pazartesi</th>
+								<th>Tuesday <br> Sali</th>
+								<th>Wednesday <br> Carsamba</th>
+								<th>Thursday <br> Persembe</th>
+								<th>Friday <br> Cuma</th>
+								<th>Saturday <br> Cumartesi</th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr class="ts-1" style="height:30px">
+								<td>08:30-09:20</td>
+								<td></td>
+								<td id="add_to_me" class="ts-3 "><a>CMPE312 / CMPE137</a></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>09:30-10:20</td>
+								<td></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>10:30-11:20</td>
+								<td class="ts-3" id="add_to_me_2">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>11:30-12:20</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>12:30-13:20</td>
+								<td></td>
+								<td></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>13:30-14:20</td>
+								<td></td>
+								<td></td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>14:30-15:20</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>15:30-16:20</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>16:30-17:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>17:30-18:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>18:30-19:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>19:30-20:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>20:30-21:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2" style="height:30px">
+								<td>21:30-22:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-1" style="height:30px">
+								<td>22:30-23:20</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							  </tr>
+							  <tr class="ts-2">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- Selected Courses -->
+			<div class="mt-3 container-fluid">
+				<div class="row ">
+					<div class="col-12 ">
+
+						  <table id="selected-c" class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
+							<thead class="thead-light">
+								<th class="pl-4" colspan="4">Selected Courses</th>
+							  </thead>
+							<tbody>
+							  <tr>
+								<td>Group #</td>
+								<td>CMPE 101</td>
+								<td>COURSE NAME</td>
+								<td align="right"><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td>
+							  </tr>
+							</tbody>
+						  </table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-5">
+			<div class="container mt-3">
+				<h3>Course Information</h3>
+				<table class="table table-bordered shadow-lg"> <!--Course Information Table-->
+					<thead>
+						<tr>
+							<th class="text-primary">Course Code</th>
+							<th class="text-primary">Course Name</th>
+							<th class="text-primary">Credit</th>
+							<th class="text-primary">Lecture Hours <small>(hrs/week)</small></th>
+							<th class="text-primary">Labs <small>(hrs/week)</small></th>
+							<th class="text-primary">Tutorial<br><small>(hrs/week)</small></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><?php echo $selectedCourse[0]["course_code"];?> </td>
+								<!--CMPE 344--></td>
+							<td><!--</td></td>Computer Networks--><?php echo $selectedCourse[0]["course_name"];?></td></td>
+							<td><!--4--><?php echo $selectedCourse[0]["credit_hours"];?></td>
+							<td><!--4--><?php echo $selectedCourse[0]["lecture_hrs"];?></td>
+							<td><!--1--><?php echo $selectedCourse[0]["labs"];?></td>
+							<td><!-----><?php echo $selectedCourse[0]["tutorial"];?></td>
+						</tr>
+
+						<tr>
+							<th class="text-primary" colspan="6">Course Context</th>
+						</tr>
+						<tr>
+							<td colspan="6"><!--Basic concepts of data transmission. Overview of networks. The layered network architecture, ISO reference model. Circuit switching, packet switching. Physical layer. Communication techniques. Frequency and time division multiplexing, modulation, modems, error detecting. Data link layer. Data link protocols. Network layer. Routing and congestion. Local area networks. Other layers. Examples of commonly used networks and their protocols. Basics of LANs ,wireless LANs, new trends in computer communication and computer networks--> <?php echo $takes[0]["course_info"];?></td></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+			<div class="container">
+				<h3>Group(s)</h3>
+				<table class="table table-hover shadow-lg"> <!--Group Information Tabel-->
+					<thead>
+						<tr>
+							<th class="text-primary">Grup</th>
+							<th class="text-primary">Quota</th>
+							<th class="text-primary">Left</th>
+							<th class="text-primary">Instructor</th>
+							<th class="text-primary" colspan="2" style="float-left"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<?php
+							/////////////////////////////////////////////////////// START FROM Here
+							?>
+
+							<td><a style="font-size:14px"><?php echo $group[0]["group_id"];?></a></td>
+							<td><a style="font-size:14px">30</a></td>
+							<td><a style="font-size:14px">2</a></td>
+							<td><a style="font-size:14px"><?php echo $groupst[0]["name"];?></a></td>
+							<td><a style="font-size:14px"><button onclick="display_1()" type="button" id="display_btn_1" value="" class="btn btn-sm btn-primary w-100" style="width:120px">Display</button></a></td>
+							<td><button type="button" class="btn btn-sm btn-primary w-100" style="width:120px">Select</button></td>
+						</tr>
+						<tr>
+							<td><a style="font-size:14px"><?php echo $group[0]["group_id"];?></a></td>
+							<td><a style="font-size:14px">30</a></td>
+							<td><a style="font-size:14px">2</a></td>
+							<td><a style="font-size:14px"><?php echo $groupst[0]["name"];?></a></td>
+							<td><a style="font-size:14px"><button onclick="display_2()" type="button" id="display_btn_2" value="" class="btn btn-sm btn-primary w-100" style="width:120px">Display</button></a></td>
+							<td><button type="button" class="btn btn-sm btn-primary w-100" style="width:120px">Select</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+	<script>  <!-- Display button script -->
+		var turn_check =0;
+		var turn_check_1 =0;
+		var elem = document.getElementById("display_btn_1");
+		var elem_2 = document.getElementById("display_btn_2");
+      function display_1() {
+				if(turn_check ==0){
+					document.getElementById("add_to_me").innerHTML +=
+					"<a id='displayed_course' class='text-primary pt-4'><br><mark id='display_crs_1'>CMPE312 / CMPE137</mark></a>";
+					elem.innerHTML = 'Cancel';
+					document.getElementById("display_crs_1").style.background='#dc3545';
+					document.getElementById("display_btn_1").style.background='#dc3545';
+					turn_check=1;
+				}else{
+					document.getElementById("displayed_course").remove();
+					document.getElementById("display_btn_1").style.background='#007bff';
+					elem.innerHTML = 'Display';
+					turn_check=0;
+			}
+        }
+		function display_2() {
+			if(turn_check_1 ==0){
+				document.getElementById("add_to_me_2").innerHTML +=
+				"<a id='displayed_course_2' class='text-primary pt-4'><br><mark id='display_crs_2'>CMPE312 / CMPE137</mark></a>";
+				elem_2.innerHTML = 'Cancel';
+				document.getElementById("display_crs_2").style.background='#ffc107';
+				document.getElementById("display_btn_2").style.background='#ffc107';
+				turn_check_1=1;
+			}else{
+				document.getElementById("displayed_course_2").remove();
+				document.getElementById("display_btn_2").style.background='#007bff';
+				elem_2.innerHTML = 'Display';
+				turn_check_1=0;
+			}
+        }
+    </script>
+
+</div>
+</html>

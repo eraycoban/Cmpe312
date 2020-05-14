@@ -29,6 +29,7 @@ function displaySemCourses($sem_id){
 
 
 
+echo "<a href='?operation=logout'>LOGOUT</a>";
 
 ?>
 
@@ -383,8 +384,16 @@ color:red;
 										<input type="hidden" name="course_code" value="<?php echo $course_code; ?>"/>
 								</form>
 
-									 <!-- <button type="button" name="select" value="select" class="btn btn-light btn-secondary border-primary rounded-right"> Select </button> </form></div> -->
-							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+
+
+							 <!-- <button type="button" name="select" value="select" class="btn btn-light btn-secondary border-primary rounded-right"> Select </button> </form></div> -->
+
+							 <!--LOOP FOR LISTING GROUPS-->
+
+							<div id="course1" class="collapse pl-3 border-top bg-light">
+								<a><?php echo $crs['group_id'];?></a> </div> <br>
+
+
 
 							<!-- <div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse" disabled></button> <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right" disabled>Select</button> </div>
 							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>

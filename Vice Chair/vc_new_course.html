@@ -81,24 +81,26 @@ table.table-bordered{
 							</div>
 						  </div>
 						  <div class="form-group row">
-							<label for="select" class="col-4 col-form-label">How many groups will have ?</label> 
+							<label for="username" class="col-4 col-form-label">Course Semester :</label> 
 							<div class="col-8">
-								<select id="select" name="select" class="custom-select">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-								</select>
+							  <input type="number" min="0" id="name" name="name" placeholder="Course Semester (1-8) " class="form-control here" type="text">
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<label for="username" class="col-4 col-form-label">Course Credit :</label> 
+							<div class="col-8">
+							  <input type="number" min="0" id="name" name="name" placeholder="Course Credit ..." class="form-control here" type="text">
 							</div>
 						  </div>
 						  <div class="form-group row">
 							<label for="publicinfo" class="col-4 col-form-label">Course Description:</label> 
 							<div class="col-8">
 							  <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+							</div>
+						  </div>
+						  <div class="form-group row">
+							<div class="offset-4 col-8 my-2">
+							  <center><input type="checkbox" class="form-check-input" id="exampleCheck1"><a>Check this box if this course is an <strong>elective</strong> course</a></center>
 							</div>
 						  </div>
 						  <div class="form-group row">

@@ -1,0 +1,188 @@
+<html>
+
+<head>
+<title> VC Add Course </title>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+<style>
+table.tt td{
+font-size:11px;
+text-align:center;
+}
+
+table,thead{
+  border: 1px solid #8e8b8b;
+}
+th, td  {
+  
+  border: 1px dashed #8e8b8b;
+}
+tr.ts-1 {
+background-color :#c2d8f9;
+}
+tr.ts-2 {
+background-color :#e1f1ff;
+}
+td.ts-3 {
+border: 1px solid #8e8b8b;
+}
+table.table-bordered{
+    border:2px solid white;
+  }
+</style>
+  
+</head>
+
+<body>
+
+<div class="main">
+	<div class="clearfix bg-light" > 
+		<div class="container-fluid  "> 
+		<div class="py-2 px-5 float-left ">
+		<a href="#"><img src="https://upload.wikimedia.org/wikipedia/tr/a/ae/Emu-dau-logo.png" alt="Logo" style="width:40px;"></a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class=""> 
+		<div class="mainnav" > 
+			<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
+				<a class="nav-link text-light active" href="vice_chair.html" color="white">Advisors</a>
+				<a class="nav-link text-light active" href="#" color="white">Courses</a>
+			</nav>
+		</div>
+	</div>
+	<div class="container-fluid my-3">
+		<div class="container-fluid">
+			
+			<div class="container my-3">  
+				<br>
+				<div class="row">
+					<div class="col-12">
+						<form>
+							<div class="container-fluid  bg-light border rounded">
+									<div class="row">
+										<div class="col-md-12 my-2">
+											<div>
+												<h5>CMPE ###</h5>
+												<h6>Course Name</h6>
+											</div>
+											<div>
+												<div>
+													<div class="row mt-4">
+														<div class="col-md-6">
+															<strong>Course Faculties : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
+														</div>
+														<div class="col-md-6">
+															<strong>Course Departments : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
+														</div>
+													</div>
+													<div class="row mt-1">
+														<div class="col-md-6">
+															<strong>Programs : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
+														</div>
+														<div class="col-md-6">
+															<strong>Course Semester : </strong><a>#</a>
+														</div>
+													</div>
+													<div class="row mt-1">
+														<div class="col-md-12">
+															<strong>Description : </strong><br><div class="border rounded bg-white"><p>LONG<br>SAMPLE<br>TEXT</p></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>      
+							</div>
+							<h3 class="my-2">Fill these areas :</h3>
+							<div class="form-group row mt-3">
+								<label for="username" class="col-3 col-form-label"><strong>Number of Groups :</strong></label> 
+								<div class="col-3">
+									<input type="number" min="0" id="name" name="name" placeholder="Ex : 4" class=" form-control here" type="text">
+								</div>
+								<label for="username" class="col-3 col-form-label"><strong>Course Hour(s) Per Week :</strong></label> 
+								<div class="col-3">
+									<input type="number" id="name" name="name" placeholder="Ex : 4" class="form-control here" type="text">
+								</div>
+							</div>
+							<div class="col-12"><center><button name='' type='button' class='btn btn-lg btn-success'>Save</button></center></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+</body>
+
+<script> <!-- ***************************** TOOL TIP SCRIPT ***************************** -->
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script> <!-- ***************************** ADD NEW Lesson HOUR SCRIPT ***************************** -->
+var row_count = 0;
+function new_lesson_Function() {
+	var table = document.getElementById("new_lesson");
+	var row = table.insertRow(row_count);
+	var cell1 = row.insertCell(0);
+	cell1.innerHTML = ( <!-- ***************************** ROW HTML ***************************** -->
+						"	<div class='form-group row'>"
+							+"	<div class='col-4'></div> "
+							+"	<div class='col-2'> " 
+							+"		<select id='select' name='select' class='custom-select'> "
+							+"			<option value=''>Monday</option> "
+							+"			<option value=''>Tuesday</option> "
+							+"			<option value=''>Wednesday</option> "
+							+"			<option value=''>Thursday</option> "
+							+"			<option value=''>Friday</option> "
+							+"			<option value=''>Saturday</option> "
+							+"		</select> "
+							+"	</div> "
+							+"	<div class='col-2'> "
+							+"	  <select id='select' name='select' class='custom-select'> "
+							+"		<option value=''>08:30-09:20</option> "
+							+"		<option value=''>09:30-10:20</option> "
+							+"		<option value=''>10:30-11:20</option> "
+							+"		<option value=''>11:30-12:20</option> "
+							+"		<option value=''>12:30-13:20</option> "
+							+"		<option value=''>13:30-14:20</option> "
+							+"		<option value=''>14:30-15:20</option> "
+							+"		<option value=''>15:30-16:20</option> "
+							+"		<option value=''>16:30-17:20</option> "
+							+"		<option value=''>17:30-18:20</option> "
+							+"	  </select> "
+							+"	</div> "
+							+"	<div class='col-2'> "
+							+"		<input list='Classes' class='custom-select'  value='' id=''> "
+							+"		<datalist id='Classes'> "
+							+"			<option value='CMPE###'> "
+							+"			<option value='CMPE###'> "
+							+"			<option value='CMPE###'> "
+							+"			<option value='CMPE###'> "
+							+"		</datalist> "
+							+"	</div> "
+							+"	<div class='col-2'> "
+							+"		<center><input type='checkbox' class='form-check-input' id='exampleCheck1' data-toggle='tooltip' data-placement='bottom' title='Check this if and only if this lesson hour is lab or tutorial !'></center> "
+							+"	</div> "
+						+"	</div>"
+);
+	row_count++;
+}
+<!-- ***************************** DELETE ROW SCRIPT ***************************** -->
+function deleteLesson_Function() {
+  document.getElementById("new_lesson").deleteRow(row_count-1);
+	row_count--;
+}
+</script>
+</html>

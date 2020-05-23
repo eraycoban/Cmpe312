@@ -1,0 +1,67 @@
+h4.baslik{
+	font-family: 'Roboto', sans-serif;
+	 
+}
+a.s-more{
+	font-family: 'Roboto', sans-serif;
+}
+nav.sticky-offset {
+    top: 56px;
+}
+
+div.mainnav{
+	font-family: 'Roboto', sans-serif;
+	background-color:#429ef5;
+}
+a.active{
+	margin-left:81;
+}
+button.btn-outline-primary {
+    color: #007bff;
+    border-color: #429ef5;
+}
+button.btn-outline-primary:hover {
+    color: #429ef5;
+    border-color: #007bff;
+	background-color: #429ef5;
+	color: #fff;
+}
+div.mainnav:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+div.mainnav:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+a.hover-nav:hover {
+	border-top: 1px solid #6c757d;
+  border-bottom: 1px solid #6c757d;
+  padding: 6px 0;
+
+}
+a.hover-nav{
+transition: 0.3s ease;
+  
+  color: #ffffff;
+  
+  text-decoration: none;
+  border-top: 4px solid #f8f9fa;
+  border-bottom: 4px solid #f8f9fa;
+  
+}
+div.main-content{
+	background-color:#e9ecef;
+}
+div.container {
+   width: %90;
+}

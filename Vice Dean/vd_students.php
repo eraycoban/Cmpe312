@@ -9,30 +9,23 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 }
 
 
-$user_id=$_SESSION["user_id"];
-$user=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
-$username=$user[0]["name"];
-$student=$db->query("SELECT * FROM student JOIN users ON student.s_id=users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+
+$student=$db->query("SELECT * FROM student JOIN departments ON student.department=departments.department")->fetchAll(PDO::FETCH_ASSOC);
 
 $numOfStudents=count($student);
+$numOfStudents=count($student);
 
-$users=$db->query("SELECT * FROM users JOIN student ON student.s_id=users.user_id")->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-function listDept($fac_id){
-	$db = new PDO("mysql:host=localhost;dbname=emu_register", "root", "");
-	$dept=$db->query("SELECT * FROM faculties INNER JOIN departments ON departments.faculty_id=faculties.faculty_id WHERE faculties.faculty_id=$fac_id")->fetchAll(PDO::FETCH_ASSOC);
-	return $dept;
-}
+//echo $student[0]["s_id"];
 
 ?>
+
 <html>
+
 <head>
 <title> Vice Dean </title>
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="/css/vice_dean.css" rel="stylesheet" type="text/css">
+<link href="style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -92,52 +85,24 @@ border: 1px solid #8e8b8b;
 		<div class="">
 			<div class="mainnav" >
 				<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
-					<a class="nav-link text-light active" href="#" color="white">FACULTIES </a>
-					<a class="nav-link text-light active" href="#" color="white">STUDENTS </a>
-                    <a class="nav-link text-light active" href='?operation=logout' color="white">LOGOUT</a>
+					<div class="nav-item dropdown">
+						<a class="nav-link text-light dropdown-toggle ml-5" data-toggle="dropdown" href="#" color="white">Departmants</a>
+						<div class="dropdown-menu ml-5">
+							<a class="dropdown-item" href="#">Link 1</a>
+							<a class="dropdown-item" href="#">Link 2</a>
+							<a class="dropdown-item" href="#">Link 3</a>
+						</div>
+					</div>
+					<a class="nav-link text-light active" href="#" color="white">All</a>
 				</nav>
 			</div>
 		</div>
-		<div class="container-fluid my-3 h-100">
+		<div class="container my-3 h-100">
 			<div class="row pb-2 h-100 ">
-				<div class="col-3">
-					<div class="container">
-						<center><h2 class="display-4">Faculties</h2></center>
-						<div id="accordion">
-							<?php
-							$count=0;
-							$numOfFaculties=12;
-							while($count<$numOfFaculties){
-								$f=listDept($count+1);
-								?>
-							<div class="card">
-								<div class="card-header">
-									<a class="collapsed card-link" data-toggle="collapse" aria-expanded="true" href="#collapseOne">
-										<?php echo $f[0]["faculty"];?>
-									</a>
-								</div>
-
-								<div id="collapseOne" class="collapse" data-parent="#accordion">
-
-									<ul class="list-group list-group-flush">
-										<?php foreach ($f as $faculty){ ?>
-										<li class="list-group-item">
-											<button class="btn" onclick="location.href='vd_courses.php'"><?php echo $faculty["department"];?></button>
-										</li>
-										<?php } ?>
-									</ul>
-
-								</div>
-							</div>
-						<?php $count++;} ?>
-					</div>
-					</div>
-					</div>
-
-				<div class="col-9">
+				<div class="col-12">
 					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
-							<a class="nav-link bg-light " href="vd_courses.php" >Courses</a>
+							<a class="nav-link bg-light " href="vd_courses.php?program=<?php echo $program_id?>" >Courses</a>
 						</li>
 						<li class="nav-item ">
 							<a class="nav-link bg-light border border-primary border-bottom-0" href="#" >Students</a>
@@ -161,23 +126,22 @@ border: 1px solid #8e8b8b;
 							</thead>
 							<tbody id="department-std-table">
 								<?php
-									$studentIndex=0;
-									while($studentIndex<$numOfStudents){
-								 ?>
-								<tr>
-									<td><?php echo $student[$studentIndex]["s_id"]; ?></td></td>
-									<td><?php echo $student[$studentIndex]["name"]." ".$student[$studentIndex]["surname"]; ?></td>
-									<td><?php echo $student[$studentIndex]["current_sem"]; ?></td>
-									<td><?php echo $student[$studentIndex]["GPA"]." | ".$student[$studentIndex]["CGPA"] ?></td>
-									<td><?php echo $student[$studentIndex]["program"]?></td></td>
-									<form action="user_information.php" method="post" target="_blank" onsubmit="window.open('user_information.php', 'newwindow', 'width=820, height=242'); return false;" >
-									<td align="center">
-										<input type="submit" name="Show More" value="Show More" class="btn btn-sm btn-primary ml-1" href="user_information.php" />
-										<input type="hidden" name="user_id" value="<?php echo $student[$studentIndex]["s_id"]; ?>"/>
-									</form>
-								</td>
+
+								$i=0;
+								while($i<$numOfStudents){
+									$id=$student[$i]['s_id'];
+									$studentProgram=$db->query("SELECT * FROM users WHERE user_id=$id")->fetchAll(PDO::FETCH_ASSOC);
+
+								?>
+								<tr >
+									<td><?php echo $student[$i]["s_id"];?></td>
+									<td><?php echo $student[$i]["name"]." ".$student[$i]["surname"];?></td>
+									<td><?php echo $student[$i]["current_sem"];?></td>
+									<td><?php echo $student[$i]["GPA"]."/".$student[$i]["CGPA"];?></td>
+									<td><?php echo $studentProgram[0]["program"];?></td>
+									<td align="center"><button type="button" class="btn btn-sm btn-primary ml-1" href="user_information.php" onclick="window.open('user_information.php?id=<?php echo $student[$i]["s_id"];?>', 'newwindow', 'width=820, height=242'); return false;">Show More</button>
 								</tr>
-								<?php $studentIndex++;} ?>
+								<?php $i++;}?>
 							</tbody>
 						  </table>
 					</div>
@@ -186,6 +150,28 @@ border: 1px solid #8e8b8b;
 
 		</div>
 	</div>
+</div>
 </body>
-
 </html>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, selected, td, td1, i, txtValue;
+  input = document.getElementById('std-search');
+  filter = input.value.toUpperCase();
+  table = document.getElementById("std-table-s");
+  //selected = document.getElementById("selectedCourse");
+  tr = table.getElementsByTagName('tr');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    txtValue = td.textContent || td.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1 ) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+}
+</script>

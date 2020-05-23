@@ -1,5 +1,5 @@
 <?php
-
+//first page
 include "../config.php";
 
 // logout and go to login page
@@ -8,26 +8,17 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 	header("Location: ../index.php");
 }
 
-
-$user_id=$_SESSION["user_id"];
-$user=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
-$username=$user[0]["name"];
-
-
-function listDept($fac_id){
-	$db = new PDO("mysql:host=localhost;dbname=emu_register", "root", "");
-	$dept=$db->query("SELECT * FROM faculties INNER JOIN departments ON departments.faculty_id=faculties.faculty_id WHERE faculties.faculty_id=$fac_id")->fetchAll(PDO::FETCH_ASSOC);
-	return $dept;
-}
-
-
+//id 6 is CMPE department
+$dept=$db->query("SELECT * FROM programs WHERE department_id=6")->fetchAll(PDO::FETCH_ASSOC);
+$deptCount = count($dept); //total number of programs
 ?>
+
 <html>
 <head>
 <title> Vice Dean </title>
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="/css/vice_dean.css" rel="stylesheet" type="text/css">
+<link href="style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -87,76 +78,51 @@ border: 1px solid #8e8b8b;
 		<div class="">
 			<div class="mainnav" >
 				<nav class="navbar navbar-expand-xl  navbar-dark shadow-lg">
-					<a class="nav-link text-light active" href="#" color="white">FACULTIES </a>
-					<a class="nav-link text-light active" href="#" color="white">STUDENTS </a>
-                    <a class="nav-link text-light active" href='?operation=logout' color="white">LOGOUT</a>
+					<div class="nav-item dropdown">
+						<a class="nav-link text-light dropdown-toggle ml-5" data-toggle="dropdown" href="#" color="white">Departmants</a>
+						<div class="dropdown-menu ml-5">
+							<a class="dropdown-item" href="#">Link 1</a>
+							<a class="dropdown-item" href="#">Link 2</a>
+							<a class="dropdown-item" href="#">Link 3</a>
+						</div>
+					</div>
+					<a class="nav-link text-light active" href="#" color="white">All</a>
 				</nav>
 			</div>
 		</div>
-		<div class="container-fluid my-3 h-100">
+		<div class="container my-3 h-100">
 			<div class="row pb-2 h-100 ">
-				<div class="col-4">
-					<div class="container">
-						<center><h2 class="display-4">Faculties</h2></center>
-
-						<div id="accordion">
-							<?php
-							$count=0;
-							$numOfFaculties=12;
-							while($count<$numOfFaculties){
-								$f=listDept($count+1);
-								?>
-							<div class="card">
-								<div class="card-header">
-									<a class="collapsed card-link" data-toggle="collapse" aria-expanded="true" href="#collapseOne">
-										<?php echo $f[0]["faculty"];?>
-									</a>
-								</div>
-
-								<div id="collapseOne" class="collapse" data-parent="#accordion">
-
-									<ul class="list-group list-group-flush">
-										<?php foreach ($f as $faculty){ ?>
-										<li class="list-group-item">
-											<form action="vd_courses.php" method="post">
-												<button class="btn" onclick="location.href='vd_courses.php'">
-													<input type="hidden" name="dept" value="<?php echo $faculty["department"];?>"/>
-												<?php echo $faculty["department"];?>
-												</button>
-											</form>
-										</li>
-										<?php } ?>
-									</ul>
-
-								</div>
-							</div>
-						<?php $count++;} ?>
-
-
-
-
-					</div>
-					</div>
-					</div>
-
-
-				<div class="col-8 h-100">
+				<div class="col-12 h-100">
 					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
-						  <a class="nav-link  bg-white" onclick="location.href='vd_courses.php'" disabled>Courses</a>
+						  <a class="nav-link  bg-white" href="#" disabled>Courses</a>
 						</li>
 						<li class="nav-item ">
-						  <a class="nav-link bg-white"onclick="location.href='vd_students.php'" disabled>Students</a>
+						  <a class="nav-link bg-white" href="vd_students.php" disabled>Students</a>
 						</li>
 					  </ul>
-					<div class="container-fluid overflow-auto bg-light rounded border" style="height:681px;padding-top:25%;">
-						<center><h4 class="text-muted" style="">No Department Selected</h4></center>
+					<div class="container-fluid overflow-auto bg-light rounded border h-100" style="padding-top:25%;">
+						<center><h4 class="text-muted" style="">Select a Department</h4> <br>
+
+								<?php
+								//loop through all available programs and list them
+								$i=0;
+								while ($i<$deptCount){
+									?>
+									<div class="container list-group" >
+										<!--when clicked, sends selected program id to next page-->
+								<a href="#" class="list-group-item list-group-item-action" onclick="location.href='vd_courses.php?program=<?php echo $dept[$i]["program_id"]?>'"><?php echo $dept[$i]["program"];?></a>
+								</div>
+							<?php $i++;} ?>
+
+						</center>
 					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
+</div>
 </body>
 
 </html>

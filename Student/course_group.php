@@ -11,197 +11,46 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 
 $user_id=$_SESSION["user_id"];
 
+//get selected course code from previous html page
+$crs_code=$_POST["course_code"];
+$sel_crs= "'".$crs_code."'";
+
+$selectedCourse=$db->query("SELECT * FROM course WHERE course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
+$sel_grp=$selectedCourse[0]["group_id"];
+
 $user=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
 $student=$db->query("SELECT * FROM student WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
 $advisor=$db->query("SELECT * FROM advises JOIN instructor WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
-//$course=$db->query("SELECT * FROM course")->fetchAll(PDO::FETCH_ASSOC);
 
 
-$crs_code=$_POST["course_code"];
-$sel_crs= "'".$crs_code."'";
-//echo $str_crs."<br/>";;
-$selectedCourse=$db->query("SELECT * FROM course WHERE course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
-
-//echo $selectedCourse[0]["course_code"]."<br/>";
+$student_tt=$db->query("SELECT periods FROM schedule WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+$stt=subArraysToString($student_tt);
+$schedule=preg_split("/[\s,]+/", $stt);
 
 
-
-//$takes=$db->query("SELECT * FROM takes JOIN course WHERE s_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
-//$chosen=$takes[0]["group_id"];
-//$chosen=$takes[0]["group_id"];
-//$group=$db->query("SELECT * FROM groupst JOIN course ON groupst.course_code = course.course_code WHERE course.course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
-//$var=$group[0]["i_id"];
-
-//$groupst=$db->query("SELECT * FROM instructor WHERE i_id=$var")->fetchAll(PDO::FETCH_ASSOC);
-//AND groupst.course_code = course.course_code WHERE
-
-//chosen course index display inside takes[courseIndex]
-//chosen course should influence all displayed things
-//$courseIndex=
-
-$sel_grp=$selectedCourse[0]["group_id"];
-
+$takes=$db->query("SELECT * FROM takes JOIN schedule ON takes.s_id=schedule.s_id WHERE takes.s_id=$user_id AND takes.group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
 
 
 function displayGroups($course){
 	$db = new PDO("mysql:host=localhost;dbname=emu_register", "root", "");
-	$group=$db->query("SELECT * FROM groupst INNER JOIN instructor ON groupst.i_id=instructor.i_id WHERE groupst.course_code=$course")->fetchAll(PDO::FETCH_ASSOC);
-	//echo print_r($group, true)."<br>";
-	//$str=subArraysToString($group);
-	//$groupArr=explode(",",$str);
-	//echo "THIS IS THE NUMBER OF ELEMENTS ".count($groupArr)."<br>";
-	//echo "THIS IS THE ARR: ".$group[0]["i_id"]."<br>";
-	//echo "THIS IS THE ARR: ".$group[0]["group_id"]."<br>";
+	$group=$db->query("SELECT * FROM course_group INNER JOIN instructor ON course_group.i_id=instructor.i_id WHERE course_group.course_code=$course")->fetchAll(PDO::FETCH_ASSOC);
 	return $group;
 
 	}
 
 
+//get periods and classrooms in array form and splice to individual ELEMENTS
+$periods=$db->query("SELECT period FROM course_group WHERE course_code=$sel_crs AND group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
+$string=subArraysToString($periods);
+echo $string;
+$lectureHour=preg_split("/[\s,]+/", $string); //each individual lecture hour
+$numOfLectures=count($lectureHour);
 
+//alg: while i<numOfLectures, match lectureHour[i] with table element, echo lectureHour[i] and classroom[i], i++
 
-//echo "Calling function to display groups<br>".displayGroups($sel_crs)."<br>";
-
-$days=$db->query("SELECT days FROM groupst WHERE course_code=$sel_crs AND group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
-echo "days as an query: ".print_r($days, true)."<br>";
-$string=subArraysToString($days);
-$dayArr=explode(", ",$string);
-echo "days converted to string: ".$string."<br>";
-echo "First index of day: ".$dayArr[0]."<br>";
-$dayArrLength=count($dayArr);
-
-
-
-
-$times=$db->query("SELECT time FROM groupst WHERE course_code=$sel_crs AND group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
-echo "times as an query: ".print_r($times, true)."<br>";
-$string1=subArraysToString($times);
-$timeArr=preg_split("/[\s,-]+/", $string1); //the values here are twice as long as the ones below
-$timeSlots=preg_split("/[\s,]+/", $string1);
-//echo "times converted to string: ".$string1."<br>";
-//echo "First index of time: ".$timeIndex[0]."<br>";
-//echo "Second index of time: ".$timeArr[1]."<br>";
-//echo "Third index of time: ".$timeArr[2]."<br>";
-//echo "Fourth index of time: ".$timeArr[3]."<br>";
-//echo "This is the number of elements: ".count($timeArr)."<br>";
-$timeArrLength=count($timeArr);
-$numOfElements=count($timeSlots);
-
-
-
-//creating key:value pairs for time:tr index
-$dict = [
-    "08:30" => "8",
-    "09:30" => "9",
-		"10:30" => "10",
-    "11:30" => "11",
-		"12:30" => "12",
-    "13:30" => "13",
-		"14:30" => "14",
-    "15:30" => "15",
-		"16:30" => "16",
-		"17:30" => "17",
-		"18:30" => "18",
-		"19:30" => "19",
-		"20:30" => "20",
-		"21:30" => "21",
-		"22:30" => "22",
-];
-
-
-
-$pair = [
-];
-
-function generateDate($days, $slots, $arr){
-	$i=0;
-	$count=count($slots);
-	while($i<$count){
-		$arr+=[$days[$i] => $slots[$i]];
-		$i++;
-	}
-	foreach($arr as $key => $val){
-		echo "---------$key => $val"."<br>";
-	}
-	return $arr;
-}
-
-$lectures = generateDate($dayArr, $timeSlots, $pair);
-//echo print_r($lectures)."<br>";
-
-
-$store=[];
-function storeValues($day, $start_time, $end_time){
-	$store+=array($day.", ".$start_time.", ".$end_time);
-	return $store;
-}
-
-
-	//echo "$key => $val \n"."<br>";
-	//key and value
-	//t is the index in time which is 4 and timeArr is the one with beginning and ending times
-	//d is the index of days which is 2 and dayArr is the one with days
-	//i is the index of time total which is 2 and timeIndex is the time slot
-
-
-foreach($lectures as $key => $val){
-	$spliced = preg_split("/[\s,-]+/", $val);
-	echo "This is val".$val."<br>";
-	//echo "STRINGGGGG---------".$spliced[0]."+++++++".$spliced[1]."-----------<br>";
-	$day=$key;
-	$start_time=$spliced[0];
-	$end_time=$spliced[1];
-	//echo "$start_time, $end_time"."<br>";
-	//echo "---------- THE DAY IS: ".$day."<br>";
-
-
-
-	foreach($dict as $k => $v){
-
-		if($spliced[0]==$k){
-			$start_tr=$v;
-		}
-		elseif($spliced[1]==$k){
-			$end_tr=$v;
-	}
-
-
-	}
-	//echo "---------- start HTML tr tag: ".$start_tr."<br>";
-	//echo "---------- eng HTML tr tag: ".$end_tr."<br>";
-
-
-	echo "$day, $start_tr, $end_tr"."<br>";
-
-	$class="CMPE 127";
-
-	$data = [
-	 'period' => $val,
-	 'start_time' => $start_time,
-	 'end_time' => $end_time,
-	 'course_code' => $crs_code,
-	 'dayName' => $day,
-	 'class'=> $class,
-];
-//$db = new PDO("mysql:host=localhost;dbname=emu_register", "root", "");
-
-$db->prepare("INSERT INTO group_schedule (period, start_time, end_time, course_code, dayName, class)
-			VALUES (:period, :start_time, :end_time, :course_code, :dayName, :class)")->execute($data);
-
-
-	}
-
-$group_schedule=$db->query("SELECT * FROM group_schedule WHERE course_code=$sel_crs")->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
-
-
-
-
-
-
-//echo $sel_grp;
+$classroom=$db->query("SELECT classroom FROM course_group WHERE course_code=$sel_crs AND group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
+$string1=subArraysToString($classroom);
+$classNo=preg_split("/[\s,]+/", $string1);
 
 
 
@@ -214,19 +63,6 @@ function subArraysToString($ar, $sep = ', ') {
     $str = rtrim($str, $sep); // remove last separator
     return $str;
 }
-
-/////////////////////////////
-
-////////////////////////////
-
-//$index = count($dayArr);
-///////////////////////////
-//echo "Number of elements: ".$index;
-
-
-
-
-
 ?>
 
 <html>
@@ -321,7 +157,7 @@ button.btn:focus,.btn:active {
 
 							<!--Student information panel-->
 
-						  <table class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
+						  <table id="student-schedule" class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
 							<tbody>
 							  <tr>
 								<td rowspan="2" ><img src="#" alt="PP"></td>
@@ -358,40 +194,28 @@ button.btn:focus,.btn:active {
 					<!--Timetable-->
 
 					<div class="col-12">
-						<table class="table table-sm tt shadow-lg">
-							<thead>
-							  <col width="%10">
-							  <col width="%15">
-							  <col width="%15">
-							  <col width="%15">
-							  <col width="%15">
-							  <col width="%15">
-							  <col width="%15">
-								<tr> <!--START OF DAY ROW-->
-	 							<th>Period <br> Saat</th>
-								<?php
-								$engDays = ["Monday","Tuesday", "Wednesday", "Thursday", "Friday","Saturday"];
-								$turkishDays = [" Pazartesi", " Sali", " Carsamba", " Persembe", " Cuma", " Cumartesi"];
-								$indexDay=0;
-								$id=1;
-								while($indexDay<6){
-									//indexDay is 0, 1, 2, 3--- example 1 is tuesday
-								?>
-	 							<th id=<?php echo "'".$id."'"?>>
-									<?php echo $engDays[$indexDay]."<br>".$turkishDays[$indexDay];
-											if ($group_schedule[0]["dayName"]==$engDays[$indexDay]){
-												$match=$indexDay+1; //so that case switch works according to index
-												echo "lecture day: ".$group_schedule[0]["dayName"]." matches ".$engDays[$indexDay]."<br>";
-											}
-
-									?>
-								</th>
-		 						<?php $indexDay++;} ?>
-							</tr><!--END OF DAY ROW-->
-							</thead>
+							<table class="table table-sm tt shadow-lg" id="timetable"> <!--Timetable-->
+								<thead>
+								  <col width="%10">
+								  <col width="%15">
+								  <col width="%15">
+								  <col width="%15">
+								  <col width="%15">
+								  <col width="%15">
+								  <col width="%15">
+								  <tr>
+									<th>Period <br> Saat</th>
+									<th>Monday <br> Pazartesi</th>
+									<th>Tuesday <br> Sali</th>
+									<th>Wednesday <br> Carsamba</th>
+									<th>Thursday <br> Persembe</th>
+									<th>Friday <br> Cuma</th>
+									<th>Saturday <br> Cumartesi</th>
+								  </tr>
+								</thead>
 
 							<tbody>
-								<tr id="1" class="ts-1" style="height:30px">
+								<tr id="0" class="ts-1" style="height:30px">
 								<td>08:30-09:20</td>
 								<td></td>
 								<td id="add_to_me" class="ts-3 "><a>CMPE312 / CMPE137</a></td>
@@ -400,7 +224,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="2" class="ts-2" style="height:30px">
+							  <tr id="1" class="ts-2" style="height:30px">
 								<td>09:30-10:20</td>
 								<td></td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
@@ -409,7 +233,7 @@ button.btn:focus,.btn:active {
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td></td>
 							  </tr>
-							  <tr id="3" class="ts-1" style="height:30px">
+							  <tr id="2" class="ts-1" style="height:30px">
 								<td>10:30-11:20</td>
 								<td class="ts-3" id="add_to_me_2">CMPE312 / CMPE137</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
@@ -418,7 +242,7 @@ button.btn:focus,.btn:active {
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td></td>
 							  </tr>
-							  <tr id="4" class="ts-2" style="height:30px">
+							  <tr id="3" class="ts-2" style="height:30px">
 								<td>11:30-12:20</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
@@ -427,7 +251,7 @@ button.btn:focus,.btn:active {
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td></td>
 							  </tr>
-							  <tr id="5" class="ts-1" style="height:30px">
+							  <tr id="4" class="ts-1" style="height:30px">
 								<td>12:30-13:20</td>
 								<td></td>
 								<td></td>
@@ -436,7 +260,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="13" class="ts-2" style="height:30px">
+							  <tr id="5" class="ts-2" style="height:30px">
 								<td>13:30-14:20</td>
 								<td></td>
 								<td></td>
@@ -445,7 +269,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="14" class="ts-1" style="height:30px">
+							  <tr id="6" class="ts-1" style="height:30px">
 								<td>14:30-15:20</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
@@ -454,7 +278,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="15" class="ts-2" style="height:30px">
+							  <tr id="7" class="ts-2" style="height:30px">
 								<td>15:30-16:20</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
 								<td class="ts-3">CMPE312 / CMPE137</td>
@@ -463,7 +287,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="16" class="ts-1" style="height:30px">
+							  <tr id="8" class="ts-1" style="height:30px">
 								<td>16:30-17:20</td>
 								<td></td>
 								<td></td>
@@ -472,7 +296,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="17" class="ts-2" style="height:30px">
+							  <tr id="9" class="ts-2" style="height:30px">
 								<td>17:30-18:20</td>
 								<td></td>
 								<td></td>
@@ -481,7 +305,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="18" class="ts-1" style="height:30px">
+							  <tr id="10" class="ts-1" style="height:30px">
 								<td>18:30-19:20</td>
 								<td></td>
 								<td></td>
@@ -490,7 +314,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="19" class="ts-2" style="height:30px">
+							  <tr id="11" class="ts-2" style="height:30px">
 								<td>19:30-20:20</td>
 								<td></td>
 								<td></td>
@@ -499,7 +323,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="20" class="ts-1" style="height:30px">
+							  <tr id="12" class="ts-1" style="height:30px">
 								<td>20:30-21:20</td>
 								<td></td>
 								<td></td>
@@ -508,7 +332,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="21" class="ts-2" style="height:30px">
+							  <tr id="13" class="ts-2" style="height:30px">
 								<td>21:30-22:20</td>
 								<td></td>
 								<td></td>
@@ -517,7 +341,7 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr id="22" class="ts-1" style="height:30px">
+							  <tr id="14" class="ts-1" style="height:30px">
 								<td>22:30-23:20</td>
 								<td></td>
 								<td></td>
@@ -526,7 +350,6 @@ button.btn:focus,.btn:active {
 								<td></td>
 								<td></td>
 							  </tr>
-							  <tr class="ts-2">
 
 							</tbody>
 						</table>
@@ -542,13 +365,13 @@ button.btn:focus,.btn:active {
 							<thead class="thead-light">
 								<th class="pl-4" colspan="4">Selected Courses</th>
 							  </thead>
-							<tbody>
-							  <tr>
+							<tbody id="tbody">
+							  <!-- <tr>
 								<td>Group #</td>
 								<td>CMPE 101</td>
 								<td>COURSE NAME</td>
 								<td align="right"><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td>
-							  </tr>
+							  </tr> -->
 							</tbody>
 						  </table>
 
@@ -573,19 +396,19 @@ button.btn:focus,.btn:active {
 					<tbody>
 						<tr>
 							<td><?php echo $selectedCourse[0]["course_code"];?> </td>
-								<!--CMPE 344--></td>
-							<td><!--</td></td>Computer Networks--><?php echo $selectedCourse[0]["course_name"];?></td></td>
-							<td><!--4--><?php echo $selectedCourse[0]["credit_hours"];?></td>
-							<td><!--4--><?php echo $selectedCourse[0]["lecture_hrs"];?></td>
-							<td><!--1--><?php echo $selectedCourse[0]["labs"];?></td>
-							<td><!-----><?php echo $selectedCourse[0]["tutorial"];?></td>
+							<td><?php echo $selectedCourse[0]["course_name"];?></td></td>
+							<td><?php echo $selectedCourse[0]["credit_hours"];?></td>
+							<td><?php echo $selectedCourse[0]["lecture_hrs"];?></td>
+							<td><?php echo $selectedCourse[0]["labs"];?></td>
+							<td><?php echo $selectedCourse[0]["tutorial"];?></td>
 						</tr>
 
 						<tr>
 							<th class="text-primary" colspan="6">Course Context</th>
 						</tr>
+
 						<tr>
-							<td colspan="6"><!--Basic concepts of data transmission. Overview of networks. The layered network architecture, ISO reference model. Circuit switching, packet switching. Physical layer. Communication techniques. Frequency and time division multiplexing, modulation, modems, error detecting. Data link layer. Data link protocols. Network layer. Routing and congestion. Local area networks. Other layers. Examples of commonly used networks and their protocols. Basics of LANs ,wireless LANs, new trends in computer communication and computer networks--> <?php echo $selectedCourse[0]["course_info"];?></td></td>
+							<td colspan="6"><?php echo $selectedCourse[0]["course_info"];?></td></td>
 						</tr>
 					</tbody>
 
@@ -597,7 +420,7 @@ button.btn:focus,.btn:active {
 				<table class="table table-hover shadow-lg"> <!--Group Information Tabel-->
 					<thead>
 						<tr>
-							<th class="text-primary">Grup</th>
+							<th class="text-primary">Group</th>
 							<th class="text-primary">Quota</th>
 							<th class="text-primary">Left</th>
 							<th class="text-primary">Instructor</th>
@@ -606,27 +429,47 @@ button.btn:focus,.btn:active {
 					</thead>
 					<tbody>
 
-
 							<?php
 								$selectedGroup=displayGroups($sel_crs);
 								$count=count($selectedGroup);
 								$i=0;
 								while($i<$count){
 								?>
+
 							<tr>
-							<td><a id="group_id" style="font-size:14px"><?php echo $selectedGroup[$i]["group_id"];?></a></td>
-							<td><a style="font-size:14px">30</a></td>
-							<td><a style="font-size:14px">2</a></td>
-							<td><a style="font-size:14px"><?php echo $selectedGroup[$i]["name"];?></a></td>
-							<td><a style="font-size:14px">
-								<button onclick="display_1()" type="button" id="display_btn_1" value="" class="btn btn-sm btn-primary w-100" style="width:120px">Display</button></a></td>
 							<td>
-								<form action="" method="post">
-								<button type="button" name="display_course" value="display_course" class="btn btn-sm btn-primary w-100" style="width:120px">Select</button></td>
-								<!--<input type="hidden" name="display_course" value="display_course"/>-->
-						</form>
-						</tr>
-						<?php $i++;} ?>
+								<a id="group_id" style="font-size:14px">
+									<?php echo $selectedGroup[$i]["group_id"];?>
+								</a>
+							</td>
+							<td><a style="font-size:14px"><?php echo $selectedGroup[$i]["quota"];?></a></td>
+							<td><a style="font-size:14px"><?php echo $selectedGroup[$i]["quota_left"];?></a></td>
+							<td><a style="font-size:14px"><?php echo $selectedGroup[$i]["name"];?></a></td>
+							<td>
+								<a style="font-size:14px">
+									<button id="display_btn" onclick="display('<?php echo $selectedGroup[$i]["period"];?>' , '<?php echo $selectedGroup[$i]["classroom"];?>', '<?php echo $selectedCourse[0]["course_code"];?>')" type="button" value="" class="btn btn-sm btn-primary w-100" style="width:120px">
+										Display
+									</button>
+								</a>
+							</td>
+
+							<td>
+								<button type="button" id="select_btn" onclick="select()" name="select_btn"  value="display_course" class="btn btn-sm btn-primary w-100" style="width:120px">
+										Select
+								</button>
+							</td>
+
+								<form name="pass_tt" >
+									<input type="hidden" id="student_tt" name="student_tt" value="<?php echo $stt; ?>" >
+									<input type="hidden" id="student_tt_arr" name="student_tt_arr" value="<?php echo $schedule; ?>" >
+									<input type="hidden" id="group_tt" name="group_tt" value="<?php echo $selectedGroup[$i]["period"];?>" >
+									<input type="hidden" id="group_id" name="group_id" value="<?php echo $takes[$i]["group_id"]; ?>" >
+									<input type="hidden" id="course_code" name="course_code" value="<?php echo $takes[$i]["course_code"]; ?>" >
+								</form>
+							</tr>
+
+							<?php $i++;} ?>
+
 					</tbody>
 				</table>
 			</div>
@@ -634,50 +477,238 @@ button.btn:focus,.btn:active {
 	</div>
 </div>
 </body>
+
 <script>
-  var turn_check =0;
-  var turn_check_1 =0;
-  var elem = document.getElementById("display_btn_1");
-  var elem_2 = document.getElementById("display_btn_2");
-    function display_1() {
-      if(turn_check ==0){
-        document.getElementById(id).innerHTML +=
-        "<a id='displayed_course' class='text-primary pt-4'><br><mark id='display_crs_1'>CMPE312 / CMPE137</mark></a>";
-        elem.innerHTML = 'Cancel';
-        document.getElementById("display_crs_1").style.background='#dc3545';
-        //this is the color of the background of button, changes to red when selected
-        document.getElementById("display_btn_1").style.background='#dc3545';
-        //$("#display_btn_1").click(function()){
-          //alert("this is what happens "+$("#group_id").text());
-        //}
-        turn_check=1;
-      }else{
-        document.getElementById("displayed_course").remove();
-        document.getElementById("display_btn_1").style.background='#007bff';
-        elem.innerHTML = 'Display';
-        turn_check=0;
+	console.log("inside script");
+	//declare variables to be used
+	var rIndex, cIndex, td, split_p, split_c, slot, table_index, output, matched, c, r, col_id, row_id, mid, res_arr, displayed, display_btn, select_btn;
+	//retrieve main timetable and "Selected Courses" table
+	var table = document.getElementById("timetable");
+	var tbody = document.getElementById("tbody");
+
+	//retrieve data that will populate "Selected Courses" table
+	var group_id=document.getElementById('group_id').value;
+	var course_name=document.getElementById('course_name').value;
+	var course_code=document.getElementById('course_code').value;
+
+	//retrieve data of student's array of periods, and group schedule's periods
+	var st_schedule = document.getElementById('student_tt').value; //access elements as array indices to get periods
+	var grp_schedule= document.getElementById('group_tt').value;
+
+	//combine retrieved arrays while trimming and splitting unnecessary characters, resulting in tokens
+	var combined = (st_schedule.trim()).concat(", ", grp_schedule.trim()).split(/[ ,\n]+/);
+	//combined is an array, convert it to string
+	var combinedStr = combined.toString();
 
 
 
-  }
-}
+	//day and time dictionary to match col id and row for display purposes
+	var col_dict = {
+		1: "Monday",
+		2: "Tuesday",
+		3: "Wednesday",
+		4: "Thursday",
+		5: "Friday"
+	}
 
-  function display_2() {
-    if(turn_check_1 ==0){
-      document.getElementById("add_to_me_2").innerHTML +=
-      "<a id='displayed_course_2' class='text-primary pt-4'><br><mark id='display_crs_2'>CMPE312 / CMPE137</mark></a>";
-      elem_2.innerHTML = 'Cancel';
-      document.getElementById("display_crs_2").style.background='#ffc107';
-      document.getElementById("display_btn_2").style.background='#ffc107';
-      turn_check_1=1;
-    }else{
-      document.getElementById("displayed_course_2").remove();
-      document.getElementById("display_btn_2").style.background='#007bff';
-      elem_2.innerHTML = 'Display';
-      turn_check_1=0;
-    }
-      }
-  </script>
+	var row_dict = {
+		1: "8:30-9:20",
+		2: "9:30-10:20",
+		3: "10:30-11:20",
+		4: "11:30-12:20",
+		5: "12:30-13:20",
+		6: "13:30-14:20",
+		7: "14:30-15:20",
+		8: "15:30-16:20",
+		9: "16:30-17:20",
+		10: "17:30-18:20",
+	}
 
-</div>
-</html>
+	//retrieve select button
+	select_btn=document.getElementById("select_btn");
+
+	//onclick function from html
+	function select(){
+		//flag variable to limit amount of times select button can be clicked
+		var clicked=0;
+		if(!clicked){
+			//when student selects group, relevant group periods are inserted to their database
+			$.ajax({
+				type: 'POST',
+				url: 'insert.php',
+				data: {combinedStr:combinedStr},
+				success: function(data){
+					console.log("in ajax: "+data);
+				}
+				})
+		//when student selects group, selected group and course should be displayed in "Selected Courses" table
+		//simplified as a function
+		displaySelectedTable(group_id, course_code, course_name);
+		//toggle flag
+		clicked=1;
+	}
+	}
+
+	//function to display selected group and course in "Selected Courses" table
+	function displaySelectedTable(group_id, course_code, course_name){
+		//insert parameters as row and concatenate onto tbody
+		tbody.innerHTML+="<tr><td>"+group_id+"</td>
+																		<td>"+course_code+"</td>
+																		<td>"+course_name+"</td>
+																		<td align='right'><button type='button' class='btn btn-primary btn-sm' >Drop Course</button></td>
+																		</tr>";
+	}
+
+
+	//display button flag to limit how many times it can be clicked
+	var turn_check=0;
+	//retrieving display button
+	display_btn=document.getElementById("display_btn");
+
+	//function to display chosen group onto timetable and cancel selection, removing chosen group from timetable
+	function display(str1, str2, course_code){
+			//display button clicked
+			if(turn_check==0){
+					//change contents of button from Display to Cancel, blue to red
+					display_btn.innerHTML='Cancel';
+					document.getElementById("display_btn").style.background='#dc3545';
+					//retrieve periods array and classrooms array, split into string calling parse function
+					split_p=parse(str1);
+					split_c=parse(str2);
+					//for each element of period
+					for(var i=0; i<split_p.length; i++){
+							//convert period number into index of 2D Matrix that represents timetable
+							slot = generateIndices(split_p[i]);
+							//match generated index with timetable index, finding correct day and lecture hour
+							table_index = match(slot);
+							//insert course code and period into appropriate day and lecture hour (matching table cell)
+							displayed=insert(table_index, course_code, split_c[i]);
+					}
+					//toggle flag
+					turn_check = 1;
+			}
+			else{
+				//change back to blue
+				document.getElementById("display_btn").style.background='#007bff';
+	      display_btn.innerHTML = 'Display';
+				document.getElementById("thiscolor").innerHTML="";
+				//toggle flag back
+	      turn_check=0;
+			}
+		}
+
+		//function to insert into table cell
+		function insert(i, cc, c){
+			//i is index of matching table index generated from match function
+			output=table.rows[i[0]].cells[i[1]];
+			var htmlstring = output.innerHTML;
+			//clash algorithm
+			//if periods are repeated, count repetitions calling duplicate function
+			var clashPeriods = duplicate(combined).trim().split(" ");
+			//how many repetitions (clashes)
+			var numOfClashes = clashPeriods.length;
+			var isClash=0;
+			//if there's no clash and cell is empty, mark color is transparent, no alarming design
+			if(!isClash && htmlstring==""){
+				output.innerHTML+=
+							"<a class='text-primary pt-4'><br><mark>"+cc+"/"+c+"</mark></a>";
+			}
+			//there is clash, highlight it in red
+			else{
+				var i=0;
+				output.innerHTML+="<a class='text-primary pt-4'><br><mark id='thiscolor'>"+cc+"/"+c+"</mark></a>";
+				while(i<numOfClashes){
+					var val = generateIndices(clashPeriods[i]);
+					console.log("this is the generated index: "+val[0]+" and "+ val[1]);
+					document.getElementById("thiscolor").style.background='#dc3545';
+					i++;
+				}
+			}
+			return output;
+		}
+
+		//counting duplicate periods. if dup=1, no clash, if >1 and 2, then clash and is allowed, if >2 can't select
+		function duplicate(arr){
+			var current = null;
+			var count=0;
+			var clashPeriod="";
+			var conflict;
+			for (var i=0; i < arr.length; i++) {
+	        if (arr[i] != current) {
+	            if (count>1) {
+									clashPeriod+=current+" ";
+	            }
+	            current = arr[i];
+	            count = 1;
+	        }
+					else {
+	            count++;
+	        }
+	    }
+		return clashPeriod;
+	}
+
+	//function to match generated index from period element in database with html index of timetable
+	function match(timeSlot){
+				//timeSlot[0] is the row_id, timeSlot[1] is the col_id
+				var matchedIndex;
+				matched=0;
+				if(!matched){
+				for(var i=0; i<table.rows.length; i++){
+				  //row cells td
+				  for(var j=0; j<table.rows[i].cells.length; j++){
+				    // td is the box
+				    td = table.rows[i].cells[j];
+				    if (td.parentElement.rowIndex==timeSlot[0] && td.cellIndex==timeSlot[1]){
+							matched=1;
+							//store the conditions that matched as this is the result needed
+							rIndex=td.parentElement.rowIndex;
+							cIndex=td.cellIndex;
+							matchedIndex = [rIndex, cIndex];
+							break;
+						}
+					}
+				}
+				return matchedIndex;
+			}
+		}
+
+		//function that takes period element p and produces 2D matrix index
+		function generateIndices(p){
+			//algorithm to calculate row index and column index, returned as a tuple
+			c=p%10;
+	    var temp=c;
+	    var temp2=c;
+			if(c>5){
+				col_id=(temp-5)%10+1;
+			}else if(c<5){
+	      col_id=temp2+1;
+	    }else if(c=5){
+				col_id=1;
+	    }
+			r=parseInt(p/10);
+			if(r==0){
+				if(p<5){row_id=1;}
+				else if(p>=5){row_id=2;}
+			}else if(r!=0){
+				mid=((r*10)+((r+1)*10))/2;
+				if(p<mid){
+					row_id=r*2+1;
+				}else if(p>=mid){
+					row_id=r*2+2;
+				}
+			}
+			return [row_id, col_id];
+		}
+
+		//simple function that converts string to array
+		function parse(s){
+			res_arr=s.split(", ");
+			return res_arr;
+		}
+
+
+	  </script>
+
+	</div>
+	</html>

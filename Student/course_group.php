@@ -42,7 +42,6 @@ function displayGroups($course){
 //get periods and classrooms in array form and splice to individual ELEMENTS
 $periods=$db->query("SELECT period FROM course_group WHERE course_code=$sel_crs AND group_id=$sel_grp")->fetchAll(PDO::FETCH_ASSOC);
 $string=subArraysToString($periods);
-echo $string;
 $lectureHour=preg_split("/[\s,]+/", $string); //each individual lecture hour
 $numOfLectures=count($lectureHour);
 
@@ -218,45 +217,45 @@ button.btn:focus,.btn:active {
 								<tr id="0" class="ts-1" style="height:30px">
 								<td>08:30-09:20</td>
 								<td></td>
-								<td id="add_to_me" class="ts-3 "><a>CMPE312 / CMPE137</a></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td id="add_to_me" class="ts-3 "></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
 							  </tr>
 							  <tr id="1" class="ts-2" style="height:30px">
 								<td>09:30-10:20</td>
 								<td></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 							  </tr>
 							  <tr id="2" class="ts-1" style="height:30px">
 								<td>10:30-11:20</td>
-								<td class="ts-3" id="add_to_me_2">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3" id="add_to_me_2"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
 								<td></td>
 							  </tr>
 							  <tr id="3" class="ts-2" style="height:30px">
 								<td>11:30-12:20</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
 								<td></td>
 							  </tr>
 							  <tr id="4" class="ts-1" style="height:30px">
 								<td>12:30-13:20</td>
 								<td></td>
 								<td></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
 							  </tr>
@@ -264,26 +263,26 @@ button.btn:focus,.btn:active {
 								<td>13:30-14:20</td>
 								<td></td>
 								<td></td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
 							  </tr>
 							  <tr id="6" class="ts-1" style="height:30px">
 								<td>14:30-15:20</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
 							  </tr>
 							  <tr id="7" class="ts-2" style="height:30px">
 								<td>15:30-16:20</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
-								<td class="ts-3">CMPE312 / CMPE137</td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
+								<td class="ts-3"></td>
 								<td></td>
 								<td></td>
 							  </tr>
@@ -356,29 +355,27 @@ button.btn:focus,.btn:active {
 					</div>
 				</div>
 			</div>
-			<!-- Selected Courses -->
 			<div class="mt-3 container-fluid">
-				<div class="row ">
-					<div class="col-12 ">
+							<div class="row">
+								<div class="col-12 ">
 
-						  <table id="selected-c" class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
-							<thead class="thead-light">
-								<th class="pl-4" colspan="4">Selected Courses</th>
-							  </thead>
-							<tbody id="tbody">
-							  <!-- <tr>
-								<td>Group #</td>
-								<td>CMPE 101</td>
-								<td>COURSE NAME</td>
-								<td align="right"><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td>
-							  </tr> -->
-							</tbody>
-						  </table>
+									  <table id="selected-c" class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
+											<h3>Selected Courses</h3>
+										<thead class="thead-light">
+											<th class="pl-4 align="center"">Group #</th>
+											<th class="pl-4 align="center"">Course Code</th>
+											<th class="pl-4 align="center"">Course Name</th>
+											<th></th>
+										  </thead>
+										<tbody id="tbody">
+										 <!--insert courses here-->
+										</tbody>
+									  </table>
 
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
 		<div class="col-5">
 			<div class="container mt-3">
 				<h3>Course Information</h3>
@@ -408,7 +405,7 @@ button.btn:focus,.btn:active {
 						</tr>
 
 						<tr>
-							<td colspan="6"><?php echo $selectedCourse[0]["course_info"];?></td></td>
+							<td colspan="6"><?php echo $selectedCourse[0]["description"];?></td></td>
 						</tr>
 					</tbody>
 
@@ -447,25 +444,35 @@ button.btn:focus,.btn:active {
 							<td><a style="font-size:14px"><?php echo $selectedGroup[$i]["name"];?></a></td>
 							<td>
 								<a style="font-size:14px">
-									<button id="display_btn" onclick="display('<?php echo $selectedGroup[$i]["period"];?>' , '<?php echo $selectedGroup[$i]["classroom"];?>', '<?php echo $selectedCourse[0]["course_code"];?>')" type="button" value="" class="btn btn-sm btn-primary w-100" style="width:120px">
+									<button id="display_btn" onclick="display('<?php echo $selectedGroup[$i]["period"];?>' , '<?php echo $selectedGroup[$i]["classroom"];?>', '<?php echo $selectedCourse[0]["course_code"];?>')" type="button" value="<?php echo $count?>" class="btn btn-sm btn-primary w-100" style="width:120px">
 										Display
 									</button>
 								</a>
 							</td>
 
 							<td>
-								<button type="button" id="select_btn" onclick="select()" name="select_btn"  value="display_course" class="btn btn-sm btn-primary w-100" style="width:120px">
+								<?php
+								$val1=$selectedCourse[0]["course_code"];
+								$val2=$selectedGroup[$i]["group_id"];
+								$val3=$selectedCourse[0]["course_name"];
+
+								 ?>
+								<form action="student.php?group_id=<?php echo $val2?>course_name=<?php echo $val3?>course_code=<?php echo $val1?>" method="post">
+										<input type="submit"  class="btn btn-sm btn-primary w-100" style="width:120px" name="select_btn" value="select" id="select_btn" />
+
+										<input type="hidden" id="group_num" name="group_num" value="<?php echo $selectedGroup[$i]["group_id"];?>" >
+										<input type="hidden" id="course_code" name="course_code" value="<?php echo $selectedCourse[0]["course_code"];?>" >
+										<input type="hidden" id="course_name" name="course_name" value="<?php echo $selectedCourse[0]["course_name"];?>" >
+										<input type="hidden" id="student_tt" name="student_tt" value="<?php echo $stt; ?>" >
+										<input type="hidden" id="student_tt_arr" name="student_tt_arr" value="<?php echo $schedule; ?>" >
+										<input type="hidden" id="group_tt" name="group_tt" value="<?php echo $selectedGroup[$i]["period"];?>" >
+										<input type="hidden" id="classes" name="classes" value="<?php echo $selectedGroup[$i]["classroom"];?>" >
+								</form>
+								<!-- <button type="button" id="select_btn"  name="select_btn"  value="" class="btn btn-sm btn-primary w-100" style="width:120px">
 										Select
-								</button>
+								</button> -->
 							</td>
 
-								<form name="pass_tt" >
-									<input type="hidden" id="student_tt" name="student_tt" value="<?php echo $stt; ?>" >
-									<input type="hidden" id="student_tt_arr" name="student_tt_arr" value="<?php echo $schedule; ?>" >
-									<input type="hidden" id="group_tt" name="group_tt" value="<?php echo $selectedGroup[$i]["period"];?>" >
-									<input type="hidden" id="group_id" name="group_id" value="<?php echo $takes[$i]["group_id"]; ?>" >
-									<input type="hidden" id="course_code" name="course_code" value="<?php echo $takes[$i]["course_code"]; ?>" >
-								</form>
 							</tr>
 
 							<?php $i++;} ?>
@@ -487,13 +494,16 @@ button.btn:focus,.btn:active {
 	var tbody = document.getElementById("tbody");
 
 	//retrieve data that will populate "Selected Courses" table
-	var group_id=document.getElementById('group_id').value;
-	var course_name=document.getElementById('course_name').value;
-	var course_code=document.getElementById('course_code').value;
+	 var group_id=document.getElementById('group_num').value;
+	 var course_code=document.getElementById('course_code').value;
+	 var course_name=document.getElementById('course_name').value;
+	 var classes=document.getElementById('classes').value;
+
 
 	//retrieve data of student's array of periods, and group schedule's periods
 	var st_schedule = document.getElementById('student_tt').value; //access elements as array indices to get periods
 	var grp_schedule= document.getElementById('group_tt').value;
+	//console.log("this is group periods from database: "+grp_schedule);
 
 	//combine retrieved arrays while trimming and splitting unnecessary characters, resulting in tokens
 	var combined = (st_schedule.trim()).concat(", ", grp_schedule.trim()).split(/[ ,\n]+/);
@@ -501,6 +511,7 @@ button.btn:focus,.btn:active {
 	var combinedStr = combined.toString();
 
 
+	document.getElementById('select_btn').addEventListener('click', select, true);
 
 	//day and time dictionary to match col id and row for display purposes
 	var col_dict = {
@@ -509,7 +520,7 @@ button.btn:focus,.btn:active {
 		3: "Wednesday",
 		4: "Thursday",
 		5: "Friday"
-	}
+	};
 
 	var row_dict = {
 		1: "8:30-9:20",
@@ -521,43 +532,59 @@ button.btn:focus,.btn:active {
 		7: "14:30-15:20",
 		8: "15:30-16:20",
 		9: "16:30-17:20",
-		10: "17:30-18:20",
-	}
+		10: "17:30-18:20"
+	};
 
 	//retrieve select button
-	select_btn=document.getElementById("select_btn");
+	select_btn = document.getElementById("select_btn");
+
+	console.log("these are the classrooms: "+classes);
 
 	//onclick function from html
 	function select(){
 		//flag variable to limit amount of times select button can be clicked
 		var clicked=0;
+		console.log("this: "+group_id+" "+course_code+" "+course_name);
 		if(!clicked){
 			//when student selects group, relevant group periods are inserted to their database
+			//student's schedule is updated, takes table is updated
 			$.ajax({
 				type: 'POST',
 				url: 'insert.php',
-				data: {combinedStr:combinedStr},
+				data: {combinedStr: combinedStr,
+							classes: classes,
+							group_id: group_id,
+							course_code: course_code,
+							course_name: course_name},
 				success: function(data){
-					console.log("in ajax: "+data);
+					console.log("in ajax: "+group_id);
+					if(group_id){
+						var html='<tr>';
+						html+='<td align="center">'+group_id+'</td>';
+						html+='<td align="center">'+course_code+'</td>';
+						html+='<td>'+course_name+'</td>';
+						html+='<td><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td></tr>';
+						$("#tbody").prepend(html);
+					}
 				}
-				})
+			});
 		//when student selects group, selected group and course should be displayed in "Selected Courses" table
 		//simplified as a function
-		displaySelectedTable(group_id, course_code, course_name);
+		//displaySelectedTable(group_id, course_code, course_name);
 		//toggle flag
 		clicked=1;
 	}
 	}
 
 	//function to display selected group and course in "Selected Courses" table
-	function displaySelectedTable(group_id, course_code, course_name){
-		//insert parameters as row and concatenate onto tbody
-		tbody.innerHTML+="<tr><td>"+group_id+"</td>
-																		<td>"+course_code+"</td>
-																		<td>"+course_name+"</td>
-																		<td align='right'><button type='button' class='btn btn-primary btn-sm' >Drop Course</button></td>
-																		</tr>";
-	}
+	// function displaySelectedTable(group_id, course_code, course_name){
+	// 	//insert parameters as row and concatenate onto tbody
+	// 	tbody.innerHTML+="<tr><td>"+group_id+"</td>
+	// 																	<td>"+course_code+"</td>
+	// 																	<td>"+course_name+"</td>
+	// 																	<td align='right'><button type='button' class='btn btn-primary btn-sm' >Drop Course</button></td>
+	// 																	</tr>";
+	// }
 
 
 	//display button flag to limit how many times it can be clicked
@@ -567,12 +594,12 @@ button.btn:focus,.btn:active {
 
 	//function to display chosen group onto timetable and cancel selection, removing chosen group from timetable
 	function display(str1, str2, course_code){
+		console.log("inside display");
 			//display button clicked
 			if(turn_check==0){
 					//change contents of button from Display to Cancel, blue to red
 					display_btn.innerHTML='Cancel';
-					document.getElementById("display_btn").style.background='#dc3545';
-					//retrieve periods array and classrooms array, split into string calling parse function
+					display_btn.style.background='#dc3545';					//retrieve periods array and classrooms array, split into string calling parse function
 					split_p=parse(str1);
 					split_c=parse(str2);
 					//for each element of period
@@ -611,16 +638,16 @@ button.btn:focus,.btn:active {
 			//if there's no clash and cell is empty, mark color is transparent, no alarming design
 			if(!isClash && htmlstring==""){
 				output.innerHTML+=
-							"<a class='text-primary pt-4'><br><mark>"+cc+"/"+c+"</mark></a>";
+							"<a class='text-primary pt-4 '><br><mark>"+cc+"/"+c+"</mark></a>";
 			}
 			//there is clash, highlight it in red
 			else{
 				var i=0;
-				output.innerHTML+="<a class='text-primary pt-4'><br><mark id='thiscolor'>"+cc+"/"+c+"</mark></a>";
+				output.innerHTML+="<a class='text-primary pt-4 bg-light'><br><mark>"+cc+"/"+c+"</mark></a>";
 				while(i<numOfClashes){
 					var val = generateIndices(clashPeriods[i]);
 					console.log("this is the generated index: "+val[0]+" and "+ val[1]);
-					document.getElementById("thiscolor").style.background='#dc3545';
+					//document.getElementById("thiscolor").style.background='#dc3545';
 					i++;
 				}
 			}

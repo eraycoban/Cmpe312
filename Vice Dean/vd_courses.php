@@ -10,8 +10,10 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 
 
 //gets selected program id from previous page
-$program_id=$_GET['program'];
+$program_id=$_GET['program_id'];
+echo $program_id;
 $courseList=$db->query("SELECT * FROM course JOIN programs ON course.program_id=programs.program_id WHERE course.program_id=$program_id")->fetchAll(PDO::FETCH_ASSOC);
+echo $courseList[0]["course_name"];
 $courseNum=count($courseList); //total number of courses in each program
 ?>
 
@@ -133,7 +135,7 @@ border: 1px solid #8e8b8b;
   									<td><?php echo $courseList[$i]["course_name"]?></td>
   									<td><?php echo $courseList[$i]["program"]?></td>
   									<td><?php echo $courseList[$i]["sem_id"]?></td>
-  									<td><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.php" onclick="window.open('course_information.php?id=<?php echo $courseList[$i]["course_id"]?>', 'newwindow', 'width=820, height=400'); return false;">More Information</button></td>
+  									<td><button style="width:140px" type="button" class="btn btn-sm btn-primary ml-1" href="course_information.php?course_code="<?php echo $courseList[$i]["course_code"]?>"" onclick="window.open('course_information.php?id=<?php echo $courseList[$i]["course_id"]?>', 'newwindow', 'width=820, height=400'); return false;">More Information</button></td>
   								</tr>
 
                 <?php $i++;}?>

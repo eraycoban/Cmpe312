@@ -11,11 +11,7 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 
 
 $student=$db->query("SELECT * FROM student JOIN departments ON student.department=departments.department")->fetchAll(PDO::FETCH_ASSOC);
-
 $numOfStudents=count($student);
-$numOfStudents=count($student);
-
-//echo $student[0]["s_id"];
 
 ?>
 
@@ -102,7 +98,7 @@ border: 1px solid #8e8b8b;
 				<div class="col-12">
 					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
-							<a class="nav-link bg-light " href="vd_courses.php?program=<?php echo $program_id?>" >Courses</a>
+							<a class="nav-link bg-light " href="location.href='vd_courses.php?program=<?php echo $program_id?>" >Courses</a>
 						</li>
 						<li class="nav-item ">
 							<a class="nav-link bg-light border border-primary border-bottom-0" href="#" >Students</a>
@@ -160,7 +156,6 @@ function myFunction() {
   input = document.getElementById('std-search');
   filter = input.value.toUpperCase();
   table = document.getElementById("std-table-s");
-  //selected = document.getElementById("selectedCourse");
   tr = table.getElementsByTagName('tr');
 
   // Loop through all list items, and hide those who don't match the search query

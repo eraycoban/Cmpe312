@@ -10,6 +10,7 @@ if(isset($_GET["operation"]) && $_GET["operation"] == "logout") {
 
 //id 6 is CMPE department
 $dept=$db->query("SELECT * FROM programs WHERE department_id=6")->fetchAll(PDO::FETCH_ASSOC);
+echo $dept[0]["program_id"];
 $deptCount = count($dept); //total number of programs
 ?>
 
@@ -111,7 +112,7 @@ border: 1px solid #8e8b8b;
 									?>
 									<div class="container list-group" >
 										<!--when clicked, sends selected program id to next page-->
-								<a href="#" class="list-group-item list-group-item-action" onclick="location.href='vd_courses.php?program=<?php echo $dept[$i]["program_id"]?>'"><?php echo $dept[$i]["program"];?></a>
+								<a href="#" class="list-group-item list-group-item-action" onclick="location.href='vd_courses.php?program_id=<?php echo $dept[$i]["program_id"]?>'"><?php echo $dept[$i]["program"];?></a>
 								</div>
 							<?php $i++;} ?>
 

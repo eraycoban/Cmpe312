@@ -3,6 +3,9 @@ include "../config.php";
 
 $course_id=$_GET['id'];
 $course=$db->query("SELECT * FROM course WHERE course_id=$course_id")->fetchAll(PDO::FETCH_ASSOC);
+$course_code="'".$course[0]['course_code']."'";
+$group=$db->query("SELECT * FROM course_group WHERE course_code=$course_code")->fetchAll(PDO::FETCH_ASSOC);
+$count = count($group);
 
 
  ?>
@@ -38,49 +41,39 @@ $course=$db->query("SELECT * FROM course WHERE course_id=$course_id")->fetchAll(
 					</div>
 					<div>
 						<div>
-							<div class="row mt-4">
-								<div class="col-md-6">
-									<strong>Course Faculties : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
-								</div>
-								<div class="col-md-6">
-									<strong>Course Departments : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
-								</div>
-							</div>
+
 							<div class="row mt-1">
+
 								<div class="col-md-6">
-									<strong>Programs : </strong><br><div class="border rounded bg-white"><a>00000000</a><br><a>00000000</a></div>
-								</div>
-								<div class="col-md-6">
-									<strong>Course Semester : </strong><a>#</a>
-								</div>
-							</div>
-							<div class="row mt-1">
-								<div class="col-md-12">
-									<strong>Country : </strong><br><div class="border rounded bg-white"><p>LONG<br>SAMPLE<br>TEXT</p></div>
+									<strong>Course Semester : </strong><a><?php echo $course[0]["sem_id"];?></a>
 								</div>
 							</div>
 							<div> <!-- ***************************SAMPLE GROUP INFORMATION*************************** -->
 								<div class="row mt-2">
 									<div class="col-md-12">
-										<strong>Group # : </strong>
+
+                    <?php
+                    $i=0;
+                    while($i<$count){
+                      ?>
+
+										<strong>Group <?php echo $group[$i]["group_id"]; ?> : </strong>
 									</div>
 								</div>
 								<div class="border rounded bg-white">
 									<div class="row mt-1 mx-2 ">
-										<div class="col-md-4">
-											<strong>Lecture Hour(s) : </strong><br><a>Monday : 00:00-00:00 CMPE###</a><br><a>Monday : 00:00-00:00 CMPE###</a>
+										<div class="col-md-6">
+                      <strong>Lecturer : </strong><a type="button" class="btn btn-sm text-primary my-1" href="user_information.html" onclick="window.open('user_information.html?instructor=<?php echo $group[$i]["instructor_name"];?>', 'newwindow', 'width=820, height=242'); return false;"><?php echo $group[$i]["instructor_name"];?></a>
 										</div>
 										<div class="col-md-4">
-											<strong>Lecturer : </strong><a type="button" class="btn btn-sm text-primary my-1" href="user_information.html" onclick="window.open('user_information.html', 'newwindow', 'width=820, height=242'); return false;">Sample Lecturer</a>
-										</div>
-										<div class="col-md-4">
-											<strong>Quota : </strong><a>##/##</a>
+											<strong>Quota : </strong><a><?php echo $group[$i]["quota"];?></a>
 										</div>
 									</div>
-									<div class="row mt-1 mx-2">
 
-									</div>
 								</div>
+                <?php
+                $i++;}
+                ?>
 							</div>
 						</div>
 					</div>
@@ -90,5 +83,4 @@ $course=$db->query("SELECT * FROM course WHERE course_id=$course_id")->fetchAll(
 	</div>
 </div>
 </body>
-
 </html>

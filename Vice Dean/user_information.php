@@ -10,6 +10,18 @@ $user_id=$_GET['id'];
 //echo $user_id;
 
 $users=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::FETCH_ASSOC);
+$department_id=$users[0]["department_id"];
+$program_id=$users[0]["program_id"];
+$fac_id=$users[0]["faculty_id"];
+$deptName=$db->query("SELECT * FROM departments where department_id=$department_id")->fetchAll(PDO::FETCH_ASSOC);
+$programName=$db->query("SELECT * FROM programs where program_id=$program_id")->fetchAll(PDO::FETCH_ASSOC);
+$facName=$db->query("SELECT * FROM faculties where faculty_id=$fac_id")->fetchAll(PDO::FETCH_ASSOC);
+
+// echo $deptName[0]["department"]."<br>";
+// echo $programName[0]["program"]."<br>";
+// echo $facName[0]["faculty"]."<br>";
+
+
 
 
 
@@ -68,15 +80,15 @@ $users=$db->query("SELECT * FROM users WHERE user_id=$user_id")->fetchAll(PDO::F
 									<strong>Country : </strong><a><?php echo $users[0]["country"]; ?></a>
 								</div>
 								<div class="col-md-6">
-									<strong>Faculty : </strong><a><?php echo $users[0]["faculty"]; ?></a>
+									<strong>Faculty : </strong><a><?php echo $facName[0]["faculty"]; ?></a>
 								</div>
 							</div>
 							<div class="row mt-1">
 								<div class="col-md-6">
-									<strong>Department : </strong><a><?php echo $users[0]["department"]; ?></a>
+									<strong>Department : </strong><a><?php echo $deptName[0]["department"]; ?></a>
 								</div>
 								<div class="col-md-6">
-									<strong>Program : </strong><a><?php echo $users[0]["program"]; ?></a>
+									<strong>Program : </strong><a><?php echo $programName[0]["program"]; ?></a>
 								</div>
 							</div>
 						</div>

@@ -299,14 +299,15 @@ color:red;
 								  
 						  <table id="selected-c" class="table table-sm table-borderless shadow" style="background-color:#e1f1ff">
 							<thead class="thead-light">
-								<th class="pl-4" colspan="4">Selected Courses</th>
+								<th class="pl-4" colspan="5">Selected Courses</th>
 							  </thead>
 							<tbody>
 							  <tr>
 								<td>Group #</td>
 								<td>CMPE 101</td>
 								<td>COURSE NAME</td>
-								<td align="right"><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td>
+								<td align="right" style="white-space: nowrap;width: 1%;"><button type="button" class="btn btn-primary btn-sm" >Change Group</button></td>
+								<td align="right" style="white-space: nowrap;width: 1%;"><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td>
 							  </tr>
 							</tbody>
 						  </table>
@@ -316,113 +317,148 @@ color:red;
 			</div>
 		</div>
 		<div class="col-5">
-			<div class="container"> <!--Semesters Panel-->
-				<center><h2 class="display-4">Semesters</h2></center>
-				<div id="accordion">
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" aria-expanded="true" href="#collapseOne">
-								Semester 1 <i class="fa fa-check-square text-success" data-toggle="tooltip" title="All courses are taken in this semester!"></i>
-							</a>
-						</div>
-						<div id="collapseOne" class="collapse" data-parent="#accordion">
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse" disabled>CMPE107 - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right" disabled>Select</button> </div>
-							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course2" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse" disabled>MATH163 - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary" disabled>Select</button> </div>
-							<div id="course2" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">ENGL 191 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
-							<div id="course3" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course4" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">ENGL 181 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
-							<div id="course4" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course5" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">MATH151 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
-							<div id="course5" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course6" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">PHYS101 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
-							<div id="course6" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-								Semester 2 <i class="fa fa-exclamation text-danger" data-toggle="tooltip" title="There is a must course this semester!"></i>
-							</a>
-						</div>
-						<div id="collapseTwo" class="collapse" data-parent="#accordion">
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">CMPE107 - Long Course Name <i class="fa fa-exclamation text-danger" data-toggle="tooltip" title="You have to choose this course!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
-							<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course2" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">MATH163 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
-							<div id="course2" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">ENGL 191 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
-							<div id="course3" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course4" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">ENGL 181 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
-							<div id="course4" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course5" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">MATH151 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
-							<div id="course5" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
-							<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course6" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">PHYS101 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
-							<div id="course6" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-								Semester 3
-							</a>
-						</div>
-						<div id="collapseThree" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
-								Semester 4
-							</a>
-						</div>
-						<div id="collapseFour" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
-								Semester 5
-							</a>
-						</div>
-						<div id="collapseFive" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">
-								Semester 6
-							</a>
-						</div>
-						<div id="collapseSix" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseSeven">
-								Semester 7
-							</a>
-						</div>
-						<div id="collapseSeven" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<a class="collapsed card-link" data-toggle="collapse" href="#collapseEight">
-								Semester 8
-							</a>
-						</div>
-						<div id="collapseEight" class="collapse" data-parent="#accordion">
-							
-						</div>
-					</div>
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#semester">Semester View</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#course">Course View</a>
+				</li>
+			</ul>
+			<div class="mx-1 card-header">
+				<div class="row">
+					<div class="col "><center><i class="fa fa-check-square text-success"></i> <a> Course Taken</a></center></div>
+					<div class="col "><center><i class="fa fa-exclamation text-danger"></i> <a> Must Course</a></center></div>
+					<div class="col "><center><i class="fa fa-sitemap"></i> <a> Pre-Required Courses</a></center></div>
 				</div>
-			
+				<div class="row">
+					<div class="col "><center><span class="badge badge-primary">A</span> <a> Course Grade</a></center></div>
+					<div class="col "><center><span class="badge badge-secondary">W</span> <a> Withdrawn </a></center></div>
+				</div>
+			</div>
+			<div class="container tab-content"> <!--Semesters Panel-->
+				<div id="semester" class="container tab-pane active" >
+					<center><h2 class="display-4">Semesters</h2></center>
+					<div id="accordion">
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" aria-expanded="true" href="#collapseOne">
+									Semester 1 <i class="fa fa-check-square text-success" data-toggle="tooltip" title="All courses are taken in this semester!"></i>
+								</a>
+							</div>
+							<div id="collapseOne" class="collapse" data-parent="#accordion">
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse" disabled>CMPE107 <i class="fa fa-sitemap" data-toggle="tooltip" title="PRE REQUIRED1, PRE REQUIRED2"></i> - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i> </button> <h4 class="my-auto mr-1"><span style="width:35px" class="badge badge-primary">A-</span></h4> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right" disabled>Select</button> </div>
+								<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course2" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse" disabled>MATH163 - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i></button> <h4 class="my-auto mr-1" ><span style="width:35px" class="badge badge-secondary">W</span></h4> <button type="button" class="btn btn-light btn-secondary border-primary" disabled>Select</button> </div>
+								<div id="course2" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">ENGL 191 <i class="fa fa-sitemap"></i> - Long Course Name <i class="fa fa-caret-down"></i> </button> <h4 class="my-auto mr-1" ><span style="width:35px" class="badge badge-primary">A-</span></h4> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+								<div id="course3" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course4" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">ENGL 181 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+								<div id="course4" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course5" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">MATH151 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+								<div id="course5" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course6" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">PHYS101 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+								<div id="course6" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+									Semester 2 <i class="fa fa-exclamation text-danger" data-toggle="tooltip" title="There is a must course this semester!"></i>
+								</a>
+							</div>
+							<div id="collapseTwo" class="collapse" data-parent="#accordion">
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">CMPE107 - Long Course Name <i class="fa fa-exclamation text-danger" data-toggle="tooltip" title="You have to choose this course!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+								<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course2" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">MATH163 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+								<div id="course2" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">ENGL 191 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+								<div id="course3" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course4" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">ENGL 181 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+								<div id="course4" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course5" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">MATH151 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+								<div id="course5" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+								<div class="bb btn-group btn-block" role="group" aria-label="Basic example"> <button type="button" href="#course6" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">PHYS101 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+								<div id="course6" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+									Semester 3
+								</a>
+							</div>
+							<div id="collapseThree" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+									Semester 4
+								</a>
+							</div>
+							<div id="collapseFour" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+									Semester 5
+								</a>
+							</div>
+							<div id="collapseFive" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">
+									Semester 6
+								</a>
+							</div>
+							<div id="collapseSix" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseSeven">
+									Semester 7
+								</a>
+							</div>
+							<div id="collapseSeven" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a class="collapsed card-link" data-toggle="collapse" href="#collapseEight">
+									Semester 8
+								</a>
+							</div>
+							<div id="collapseEight" class="collapse" data-parent="#accordion">
+								
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div id="course" class="container tab-pane" >
+					<center><h2 class="display-4">Courses</h2></center>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course1" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse" disabled>CMPE107 - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right" disabled>Select</button> </div>
+					<div id="course1" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course2" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse" disabled>MATH163 - Long Course Name <i class="fa fa-check-square text-success" data-toggle="tooltip" title="This course is already taken!"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary" disabled>Select</button> </div>
+					<div id="course2" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course3" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">ENGL 191 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+					<div id="course3" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course4" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">ENGL 181 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+					<div id="course4" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course5" class="bb btn-md btn btn-basic btn-block border-top pt-2 "  data-toggle="collapse">MATH151 - Long Course Name <i class="fa fa-caret-down"></i> </button> <button type="button" class="btn btn-light btn-secondary border-primary rounded-right">Select</button> </div>
+					<div id="course5" class="collapse pl-3 border-top bg-light"><a>Group 1 -  MEHMET BODUR <a> <br> <a>Group 2 - TBH</a></div> <br>
+					<div class="bb btn-group btn-block border border-right-0 border-bottom-0 border-top-0" role="group" aria-label="Basic example"> <button type="button" href="#course6" class="bb btn-md btn btn-basic btn-block border-top" data-toggle="collapse">PHYS101 - Long Course Name <i class="fa fa-caret-down"></i></button> <button type="button" class="btn btn-light btn-secondary border-primary">Select</button> </div>
+					<div id="course6" class="collapse pl-3 border-top bg-light"><a>Group 1 - TBH</a> <br> <a>Group 2 - TBH</a></div> <br>
+				</div>
 			</div>
 		</div>
 	</div>

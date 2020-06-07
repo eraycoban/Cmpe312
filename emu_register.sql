@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2020 at 12:42 PM
+-- Generation Time: Jun 07, 2020 at 08:21 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.28
 
@@ -76,7 +76,11 @@ CREATE TABLE `advisors` (
 --
 
 INSERT INTO `advisors` (`id`, `user_id`) VALUES
-(1, 20000051);
+(1, 20000051),
+(16, 20000090),
+(17, 20000097),
+(18, 20000099),
+(19, 23456789);
 
 -- --------------------------------------------------------
 
@@ -85,35 +89,119 @@ INSERT INTO `advisors` (`id`, `user_id`) VALUES
 --
 
 CREATE TABLE `course` (
+  `id` int(11) NOT NULL,
   `course_id` int(5) NOT NULL,
   `group_id` int(5) NOT NULL,
+  `group_names` varchar(255) NOT NULL,
   `course_code` varchar(25) DEFAULT NULL,
   `course_name` varchar(50) DEFAULT NULL,
   `credit_hours` int(2) DEFAULT NULL,
   `lecture_hrs` int(2) DEFAULT NULL,
   `labs` int(2) DEFAULT NULL,
   `tutorial` int(2) DEFAULT NULL,
-  `course_info` varchar(255) DEFAULT NULL,
   `department` varchar(25) DEFAULT NULL,
-  `sem_id` int(5) NOT NULL
+  `sem_id` int(5) NOT NULL,
+  `program_id` int(5) NOT NULL,
+  `group_number` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `is_elective` int(111) NOT NULL,
+  `credit` int(111) NOT NULL,
+  `programs` varchar(255) NOT NULL,
+  `faculties` varchar(255) NOT NULL,
+  `departments` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`course_id`, `group_id`, `course_code`, `course_name`, `credit_hours`, `lecture_hrs`, `labs`, `tutorial`, `course_info`, `department`, `sem_id`) VALUES
-(211, 1, 'CMSE 211', 'Introduction', 4, 4, 1, 0, 'Introduction to fundamentals', 'Software Engineering', 2),
-(211, 2, 'CMSE 211', 'Introduction', 4, 4, 1, 0, 'Introduction to fundamentals', 'Software Engineering', 2),
-(344, 1, 'CMPE 344', 'Computer Networks', 4, 4, 1, 0, 'Basic concepts of data tr', 'Computer Engineering', 0),
-(344, 2, 'CMPE 344', 'Computer Networks', 4, 4, 1, 0, 'Basic concepts of data tr', 'Computer Engineering', 0),
-(1101, 1, 'MGMT101', 'Introduction to Business - I ', 3, 3, 0, 0, 'Understanding the business system. Understanding the global context of business. Conducting business ethically and responsibly. Entrepreneurship and the small business. Managing the business enterprise. Organizing the business enterprise.', 'Business Administration', 1),
-(1102, 1, 'MGMT102', ' Introduction to Business - II ', 3, 3, 0, 0, 'A basic introduction to business matters. Topics include: motivation and leadership; human resources and labor relations; marketing, information systems; money and banking; and securities and investments.', 'Business Administration', 2),
-(1171, 1, 'MGMT171', 'Introduction to Information Technology - I ', 3, 3, 1, 1, 'Introduction to information technology and its significance for business, economics, and society. Understanding how computers work, introducing fundamental concepts relating to hardware, software, central processing unit, input and output, storage, networ', 'Business Administration', 1),
-(25711, 1, 'CMPE 107', 'Foundations of Computer Engineering', 4, 4, 1, 0, 'Design of computer algorithms with pseudo-code to solve problems, analyze engineering related\r\nproblems using computer. Basic elements of a high level computer programming language: Data types,\r\nconstants and variables, arithmetic and logical operators an', 'Computer Engineering', 1),
-(25712, 1, 'MATH 163', 'Discrete Mathematics', 3, 3, 0, 1, 'Discrete Mathematics', 'Faculty of Arts & Science', 1),
-(25712, 2, 'MATH 163', 'Discrete Mathematics', 3, 3, 0, 1, 'Discrete Mathematics', 'Faculty of Arts & Science', 0),
-(25713, 2, 'CMPE 107', 'Foundations of Computer Engineering', 4, 4, 1, 0, 'Design of computer algorithms with pseudo-code to solve problems, analyze engineering related\r\nproblems using computer. Basic elements of a high level computer programming language: Data types,\r\nconstants and variables, arithmetic and logical operators an', 'Computer Engineering', 0);
+INSERT INTO `course` (`id`, `course_id`, `group_id`, `group_names`, `course_code`, `course_name`, `credit_hours`, `lecture_hrs`, `labs`, `tutorial`, `department`, `sem_id`, `program_id`, `group_number`, `description`, `is_elective`, `credit`, `programs`, `faculties`, `departments`) VALUES
+(1, 35, 1, 'CMPE107-1, CMPE107-2', 'CMPE107', 'Fundamentals of Computer Engineering ', 4, NULL, NULL, NULL, 'Computer Engineering ', 1, 12, '2', 'The basic fundamental course that will teach you how to think as a computer engineer, how to write codes, declare variables, create loops, make some operations andhow to solve problems that you may face.', 0, 0, '', '', ''),
+(2, 36, 0, 'MATH163x1, MATH163x2', 'MATH163', 'Discrete Mathematics ', 3, 4, 0, 4, 'Computer Engineering', 1, 12, '2', 'Set theory, functions and relations; introduction to set theory, functions and relations, inductive proofs and recursive definitions. Combinatorics; basic counting rules, permutations, combinations, allocation problems, selection problems, the pigeonhole ', 0, 0, '9, 10, 11, 12', '2, 9', ''),
+(3, 37, 0, '', 'ENGL191', 'Communication in English - I ', 3, NULL, NULL, NULL, 'Computer Engineering', 1, 12, '4', 'ENGL191 is a first-semester freshman academic English course. It is designed to help students improve the level of their English to B1+ level, as specified in the Common European Framework of Reference for Languages. The course connects critical thinking ', 0, 0, '9, 10, 11, 12', '2, 9', ''),
+(5, 39, 0, '', 'PHYS101', 'Physics - I ', 4, NULL, NULL, NULL, 'Computer Engineering', 1, 12, '4', 'Physical quantities and units. Vector calculus. Kinematics of motion. Newton`s laws of motion and their applications. Work-energy theorem. Impulse and momentum. Rotational kinematics and dynamics. Static equilibrium.', 0, 0, '', '', ''),
+(6, 40, 0, '', 'CMPE100', 'Introduction to Profession ', 0, NULL, NULL, NULL, 'Computer Engineering', 1, 12, '1', 'A series of seminars are held in current topics and areas of specialization in Computer Engineering. ', 0, 0, '', '', ''),
+(7, 41, 0, '', 'CMPE112', 'Programming Fundamentals', 4, NULL, NULL, NULL, 'Computer Engineering', 2, 12, '2', 'An overview of C programming language, Sequential structure Data types and classes of data, arithmetic operators and expressions, assignment statements, type conversions, simple I/O functions (printf, scanf, fprintf, fscanf, gets, puts, fgets, fputs).', 0, 0, '9, 10, 11, 12', '', '6, 7, 8, 12'),
+(8, 42, 0, '', 'ENGL192', 'Communication in English - II', 3, NULL, NULL, NULL, 'Computer Engineering', 2, 12, '4', 'ENGL192 is a second-semester freshman academic English course. It is designed to help students improve the level of their English to B2 level, as specified in the Common European Framework of Reference for Languages.', 0, 0, '', '', ''),
+(9, 43, 0, '', 'MATH152', 'Calculus - II ', 4, NULL, NULL, NULL, 'Computer Engineering', 2, 12, '4', 'Vectors in R3. Lines and Planes. Functions of several variables. Limit and continuity. Partial differentiation. Chain rule. Tangent plane.', 0, 0, '', '', ''),
+(10, 44, 0, 'PHYS102x1, PHYS102x2, PHYS102x3, PHYS102x4', 'PHYS102', 'Physics - II', 4, NULL, NULL, NULL, 'Computer Engineering', 2, 12, '4', 'Kinetic theory of ideal gases. Equipartition of energy. Heat, heat transfer and heat conduction.', 0, 0, '', '', ''),
+(11, 45, 0, '', 'HIST280', 'Atatürk İlkeleri ve İnkilap Tarihi', 2, NULL, NULL, NULL, 'Computer Engineering', 2, 12, '2', 'Tarih', 0, 0, '', '', ''),
+(12, 46, 0, 'CMPE223x1, CMPE223x2', 'CMPE223', 'Digital Logic Design ', 4, NULL, NULL, NULL, 'Computer Engineering', 3, 12, '2', 'Binary Systems (Binary Numbers, Octal and Hexadecimal Numbers, Number Base Conversions, Complements, Signed Binary Numbers, Binary Codes, Binary Logic).', 0, 0, '9, 10, 11', '', '6, 7, 8, 12'),
+(13, 47, 0, '', 'CMPE231', 'Data Structures ', 4, NULL, NULL, NULL, 'Computer Engineering', 3, 12, '2', 'Data types and basic operations on data structures. Arrays, strings, stacks, queues, linked list structures and tree structures. ', 0, 0, '9, 10, 11', '', '6, 7, 8, 12'),
+(14, 48, 0, '', 'CMPE211', 'Object Oriented Programming', 4, NULL, NULL, NULL, 'Computer Engineering', 3, 12, '2', 'Basics of Java programming language. ', 0, 0, '9, 10, 11', '', '6, 7, 8, 12'),
+(15, 49, 0, '', 'ENGL201', 'Communication Skills in English III - Technical Re', 3, NULL, NULL, NULL, 'Computer Engineering', 3, 12, '4', 'ENGL 201 is a Communication Skills course for students at the Faculty of Engineering.', 0, 0, '', '', ''),
+(16, 50, 0, '', 'MATH241', 'LINEAR ALGEBRA AND ORDINARY DIFFERENTIAL EQUATIONS', 4, NULL, NULL, NULL, 'Computer Engineering', 3, 12, '4', 'Systems of linear equations, Echelon forms. Matrix Algebra, Determinants, and Inverse matrices.', 0, 0, '', '', ''),
+(17, 51, 0, '', 'CMPE224', 'Digital Logic Systems', 4, NULL, NULL, NULL, 'Computer Engineering', 4, 12, '1', 'Algorithmic state machines. Asynchronous sequential logic.', 0, 0, '', '', ''),
+(18, 52, 0, '', 'CMPE226', 'Electronics for Computer Engineers', 4, NULL, NULL, NULL, 'Computer Engineering', 4, 12, '1', 'Circuits, currents and voltages, power and energy, Kirchoff\'s current and voltage laws.', 0, 0, '', '', '6, 7, 8, 12'),
+(19, 53, 0, '', 'CMPE242', 'Operating Systems ', 4, NULL, NULL, NULL, 'Computer Engineering', 4, 12, '2', 'Operating system definition, simple batch systems, multiprogramming, time-sharing, personal computer systems, parallel systems.', 0, 0, '', '', '6, 7, 8, 12'),
+(20, 54, 0, '', 'MATH373', 'Numerical Analysis for Engineers', 3, NULL, NULL, NULL, 'Computer Engineering', 4, 12, '4', 'Numerical error. ', 0, 0, '', '', ''),
+(21, 55, 0, '', 'UE-AH01', 'Uni.Elecitive - Arts & Humanities- I', 3, NULL, NULL, NULL, 'Computer Engineering', 4, 12, '1', 'Uni. Elective - Art & Humanities - II', 1, 0, '', '', ''),
+(22, 56, 0, '', 'CMPE325', 'Computer Architecture and Organization', 4, NULL, NULL, NULL, 'Computer Engineering', 5, 12, '1', 'Pipelining and enhancing performance with pipelining.', 0, 0, '', '', ''),
+(23, 57, 0, '', 'CMPE353', 'Database Management Systems', 4, NULL, NULL, NULL, 'Computer Engineering', 5, 0, '1', 'Database SQL language.', 0, 0, '', '', ''),
+(24, 58, 0, '', 'CMPE371', 'Analysis of Algorithms', 4, NULL, NULL, NULL, 'Computer Engineering', 5, 12, '2', 'Design, analysis and representation of algorithms.', 0, 0, '', '', ''),
+(25, 59, 0, '', 'CMPE321', 'Signals and Systems for Computer Engineers', 4, NULL, NULL, NULL, 'Computer Engineering', 5, 12, '1', 'Fundamental concepts of signals and systems for computer engineers with focus on discrete-time systems. Sinusoids, complex numbers, spectrum representation, sampling, frequency response, filters, and the z-Transform.', 0, 0, '', '', ''),
+(26, 60, 0, '', 'MATH322', 'Probability and Statistical Methods', 3, NULL, NULL, NULL, 'Computer Engineering', 5, 12, '4', 'Introduction to probability and statistics. ', 0, 0, '', '', ''),
+(26, 62, 0, '', 'CMPE320', 'High End Embedded Systems ', 4, NULL, NULL, NULL, 'Computer Engineering', 6, 12, '1', 'High End Embedded Systems ', 0, 0, '', '', ''),
+(27, 63, 0, '', 'CMPE344', 'Computer Networks ', 4, NULL, NULL, NULL, 'Computer Engineering', 6, 12, '2', 'Basic concepts of data transmission. ', 0, 0, '', '', ''),
+(28, 64, 0, '', 'CMPE342', 'Client/Server Programming', 4, NULL, NULL, NULL, 'Computer Engineering', 6, 12, '1', 'Client/Server Programming', 0, 0, '', '', ''),
+(29, 65, 0, '', 'CMPE312', 'Software Engineering', 4, NULL, NULL, NULL, 'Computer Engineering', 6, 12, '1', 'Software Engineering', 0, 0, '', '', ''),
+(30, 66, 0, '', 'UE-AH02', 'Uni.Elecitive - Arts & Humanities - II', 4, NULL, NULL, NULL, 'Computer Engineering', 6, 12, '1', 'Uni.Elecitive - Arts & Humanities - II', 1, 0, '', '', ''),
+(31, 67, 0, '', 'CMPE400', 'Summer Training', 0, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '1', 'As a part of the fulfilment of the graduation requirements, all students must complete 40 work days of summer training after the second and/or third year, during summer vacations.', 0, 0, '', '', ''),
+(32, 68, 0, '', 'CMPE455', 'Security of Computer System and Networks', 4, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '2', 'Security of Computer System and Networks', 0, 0, '', '', ''),
+(33, 69, 0, '', 'AE01', 'Area Elective I', 3, 4, NULL, NULL, 'Computer Engineering', 7, 12, '1', 'Area Elective I', 1, 0, '', '', ''),
+(34, 70, 0, '', 'AE02', 'Area Elective II', 3, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '1', 'Area Elective II', 1, 0, '', '', ''),
+(35, 71, 0, '', 'CMPE471', 'Automata Theory ', 4, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '1', 'Mathematical preliminaries and basic concepts. Strings, Languages and Grammars. ', 0, 0, '', '', ''),
+(36, 72, 0, '', 'CMPE405', 'Graduation Project - I/II', 1, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '1', 'Graduation Project - I/II', 0, 0, '', '', ''),
+(37, 73, 0, '', 'IENG355', 'Ethics in Engineering ', 3, NULL, NULL, NULL, 'Computer Engineering', 7, 12, '2', 'This course is designed to introduce moral rights and responsibilities of engineers in relation to society, employers, colleagues and clients.', 0, 0, '', '', ''),
+(38, 74, 0, '', 'CMPE410', 'Principles of Programming Languages', 4, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '2', 'Principles of Programming Languages', 0, 0, '', '', ''),
+(39, 75, 0, '', 'CMPE412', 'Software Engineering', 4, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '1', 'The software life cycle and the phases in software development: Project scheduling, feasibility study, analysis, specification, design, implementation, testing, quality assurance, documentation, maintenance.', 0, 0, '', '', ''),
+(40, 76, 0, '', 'AE03', 'Area Elective III ', 4, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '1', 'Area Elective III ', 1, 0, '', '', ''),
+(41, 77, 0, '', 'UE-AH03', 'Uni. Elective - Art & Humanities - III', 3, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '1', 'Uni. Elective - Art & Humanities - III', 1, 0, '', '', ''),
+(42, 78, 0, '', 'UE-AH04', 'Uni. Elective - Art & Humanities - IV', 3, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '1', 'Uni. Elective - Art & Humanities - IV', 1, 0, '', '', ''),
+(43, 79, 0, '', 'CMPE406', 'Graduation Project - II', 3, NULL, NULL, NULL, 'Computer Engineering', 8, 12, '1', 'Graduation Project - II', 0, 0, '', '', ''),
+(0, 25717, 0, '', 'MATH151', 'Calculus - I', 3, NULL, NULL, NULL, 'Computer Engineering', 1, 12, '2', '', 0, 0, '', '', ''),
+(0, 25718, 0, 'CMPE000-1', 'CMPE000', 'Zero', NULL, NULL, NULL, NULL, NULL, 2, 0, '', 'descr', 0, 2, '12', '2', '6'),
+(0, 25719, 0, 'CMPE000-1', 'CMPE000', 'Zero', NULL, NULL, NULL, NULL, NULL, 2, 0, '', 'descr', 0, 2, '12', '2', '6'),
+(0, 25720, 0, 'CMPE000-1', 'CMPE000', 'Zero', NULL, NULL, NULL, NULL, NULL, 2, 0, '', 'descr', 0, 2, '12', '2', '6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_group`
+--
+
+CREATE TABLE `course_group` (
+  `ref` int(5) NOT NULL,
+  `course_code` varchar(255) DEFAULT NULL,
+  `group_names` varchar(255) NOT NULL,
+  `group_id` int(5) DEFAULT NULL,
+  `i_id` int(8) DEFAULT NULL,
+  `instructor_name` varchar(255) NOT NULL,
+  `quota` int(5) DEFAULT NULL,
+  `quota_left` int(5) DEFAULT NULL,
+  `clash` int(5) DEFAULT NULL,
+  `period` varchar(255) DEFAULT NULL,
+  `classroom` varchar(255) DEFAULT NULL,
+  `lecture_days` varchar(255) NOT NULL,
+  `lecture_classes` varchar(255) NOT NULL,
+  `lecture_hours` varchar(255) NOT NULL,
+  `is_lab` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `course_group`
+--
+
+INSERT INTO `course_group` (`ref`, `course_code`, `group_names`, `group_id`, `i_id`, `instructor_name`, `quota`, `quota_left`, `clash`, `period`, `classroom`, `lecture_days`, `lecture_classes`, `lecture_hours`, `is_lab`) VALUES
+(1, 'MATH163', 'MATH163x1', 1, 209876543, 'Math Instructor', 30, 26, NULL, '00, 10, 42, 52', 'AS G14, AS 414, CLA 11, CLA 11', '', '', '', ''),
+(2, 'MATH163', 'MATH163x2', 2, 200876543, 'Second Math Instructor', 30, 29, NULL, '11, 16, 14, 19', 'CLA 13, CLA 13, CLA 13, CLA 13', '', '', '', ''),
+(3, 'CMPE223', 'CMPE223x1', 1, 20202020, 'Adnan Acan', 30, -5, NULL, '41, 51, 02, 12, 42, 52', 'CMPE127, CMPE127, CMPE126, CMPE126, CMPE237, CMPE237', '', '', '', ''),
+(4, 'CMPE223', 'CMPE223x2', 2, 22223333, 'Marifi Guler', 15, 11, NULL, '00, 10, 21, 31, 44, 54', 'CMPE033, CMPE033, CMPE134, CMPE134, CMPE036, CMPE036 ', '', '', '', ''),
+(5, 'PHYS102', 'PHYS102x1', 1, 20192019, 'Physics Instructor', 60, 60, NULL, '02, 12, 04, 14, 23, 33', 'AS A, AS A, AS G11, AS G11, CLA 13, CLA 13', '', '', '', ''),
+(6, 'PHYS102', 'PHYS102x2', 2, 20182018, 'Second Physics Instructor', 60, 60, NULL, '40, 50, 22, 32, 03, 13', 'ASG14, ASG14, CLA11, CLA11, CLA12, CLA12', '', '', '', ''),
+(7, 'PHYS102', 'PHYS102x3', 3, 20172017, 'Third Physics Instructor', 60, 60, NULL, '41, 51, 23, 33, 24, 34', 'ASG14, ASG14, CLA11, CLA11, CLA12, CLA12', '', '', '', ''),
+(8, 'PHYS102', 'PHYS102x4', 4, 20162016, 'Fourth Physics Instructor', 60, 60, NULL, '03, 13, 04, 14, 60, 70', 'ASxx, ASxx, CLAxx, CLAxx, CLAxx, CLAxx', '', '', '', ''),
+(9, NULL, 'CMPE000-1', NULL, 23456789, '', 60, 60, NULL, '00', NULL, 'monday', 'CMPE306', '08:30-09:20', '0');
 
 -- --------------------------------------------------------
 
@@ -208,87 +296,6 @@ INSERT INTO `faculties` (`id`, `faculty_id`, `faculty`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupst`
---
-
-CREATE TABLE `groupst` (
-  `ref` int(5) NOT NULL,
-  `group_id` int(5) DEFAULT NULL,
-  `course_code` varchar(20) DEFAULT NULL,
-  `i_id` int(8) DEFAULT NULL,
-  `days` varchar(255) NOT NULL,
-  `time` varchar(255) NOT NULL,
-  `hrs` int(5) NOT NULL DEFAULT 2
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `groupst`
---
-
-INSERT INTO `groupst` (`ref`, `group_id`, `course_code`, `i_id`, `days`, `time`, `hrs`) VALUES
-(1, 1, 'CMPE 344', 23456789, 'Monday, Tuesday, Wednesday', '08:30-10:30, 08:30-10:30, 12:30-14:30 ', 2),
-(2, 2, 'CMPE 344', 23456789, 'Tuesday, Wednesday, Thursday', '12:30-14:30, 08:30-10:30, 12:30-14:30', 2),
-(3, 1, 'CMSE 211', 21345678, 'Tueday, Wednesday, Friday', '08:30-10:30, 08:30-10:30, 16:30-18:30', 2),
-(4, 1, 'MATH 163', 209876543, 'Tuesday, Thursday', '10:30-12:30, 10:30-12:30', 2),
-(5, 2, 'MATH 163', 200876543, 'Wednesday, Friday', '08:30-10:30, 08:30-10:30', 2),
-(6, 2, 'CMSE 211', 21345678, 'Monday, Wednesday, Thursday', '08:30-10:30, 08:30-10:30, 12:30-14:30', 2),
-(7, 1, 'CMPE 107', 22223333, 'Monday, Wednesday, Friday', '08:30-10:30, 08:30-10:30, 12:30-14:30', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `group_schedule`
---
-
-CREATE TABLE `group_schedule` (
-  `schedule_id` int(5) NOT NULL,
-  `period` varchar(50) DEFAULT NULL,
-  `start_time` varchar(50) DEFAULT NULL,
-  `end_time` varchar(50) DEFAULT NULL,
-  `course_code` varchar(25) DEFAULT NULL,
-  `dayName` varchar(25) DEFAULT NULL,
-  `class` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `group_schedule`
---
-
-INSERT INTO `group_schedule` (`schedule_id`, `period`, `start_time`, `end_time`, `course_code`, `dayName`, `class`) VALUES
-(4, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(5, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(6, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(7, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(8, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(9, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(10, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(11, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(12, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(13, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(14, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(15, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(16, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(17, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(18, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(19, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(20, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(21, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(22, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(23, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(24, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(25, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(26, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(27, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(28, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(29, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(30, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(31, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127'),
-(32, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Tuesday', 'CMPE 127'),
-(33, '10:30-12:30', '10:30', '12:30', 'MATH 163', 'Thursday', 'CMPE 127');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `instructor`
 --
 
@@ -305,6 +312,11 @@ CREATE TABLE `instructor` (
 --
 
 INSERT INTO `instructor` (`i_id`, `name`, `department`, `role`, `email`) VALUES
+(20162016, 'Fourth Physics Instructor', NULL, 'Instructor', 'physics4@gmail.com'),
+(20172017, 'Third Physics Instructor', NULL, 'Instructor', 'physics3@gmail.com'),
+(20182018, 'Second Physics Instructor', NULL, 'Instructor', 'physics2@gmail.com'),
+(20192019, 'Physics Instructor', NULL, 'Instructor', 'physics@gmail.com'),
+(20202020, 'Adnan Acan', 'Computer Engineering', 'Instructor', 'profacan@email.com'),
 (21345678, 'Alexander Chefranov', 'Software Engineering', 'Academic Instructor', 'alexanderchefranov@emu.edu.tr'),
 (22223333, 'Marifi Guler', 'Computer Engineering', 'Instructor', 'marifiguler@emu.edu.tr'),
 (23456789, 'Mehmet Bodur', 'Computer Engineering', 'Academic Instructor', 'mehmetbodur@emu.edu.tr'),
@@ -418,6 +430,29 @@ INSERT INTO `programs` (`id`, `department_id`, `program_id`, `program`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `s_id` int(8) NOT NULL,
+  `periods` varchar(255) DEFAULT NULL,
+  `classroom` varchar(255) NOT NULL,
+  `course_code` varchar(255) NOT NULL,
+  `confirmed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`s_id`, `periods`, `classroom`, `course_code`, `confirmed`) VALUES
+(16000070, NULL, '', '', 1),
+(17450019, NULL, '', '', 1),
+(17700283, '       00, 01, 02, 03, 04', '           cla, cla, cla, cla, cla', 'cc, cc, cc, cc, cc', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -428,17 +463,23 @@ CREATE TABLE `student` (
   `department` varchar(50) DEFAULT NULL,
   `GPA` float(3,2) DEFAULT NULL,
   `CGPA` float(3,2) DEFAULT NULL,
-  `current_sem` int(5) NOT NULL
+  `current_sem` int(5) NOT NULL,
+  `advisor_id` int(111) DEFAULT NULL,
+  `reg_status` int(111) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`s_id`, `name`, `surname`, `department`, `GPA`, `CGPA`, `current_sem`) VALUES
-(16000070, 'Berkan', 'Ergil', 'Computer Engineering', 4.00, 4.00, 7),
-(17450019, 'Mehmet', 'Tacyildiz', 'Computer Engineering', 4.00, 4.00, 6),
-(17700283, 'Amina', ' Ait', 'Computer Engineering', 3.30, 3.30, 6);
+INSERT INTO `student` (`s_id`, `name`, `surname`, `department`, `GPA`, `CGPA`, `current_sem`, `advisor_id`, `reg_status`) VALUES
+(10000078, NULL, '', NULL, NULL, NULL, 0, 20000090, 0),
+(10000084, NULL, '', NULL, NULL, NULL, 0, 20000090, 0),
+(10000091, NULL, '', NULL, NULL, NULL, 0, 20000097, 0),
+(16000070, 'Berkan', 'Ergil', 'Computer Engineering', 4.00, 4.00, 7, NULL, 0),
+(17450019, 'Mehmet', 'Tacyildiz', 'Computer Engineering', 4.00, 4.00, 6, NULL, 0),
+(17700283, 'Amina', ' Ait', 'Computer Engineering', 3.30, 3.30, 2, 23456789, 0),
+(17700284, 'Submitted', 'Student', 'Computer Engineering', 3.30, 3.30, 2, 23456789, 1);
 
 -- --------------------------------------------------------
 
@@ -447,17 +488,42 @@ INSERT INTO `student` (`s_id`, `name`, `surname`, `department`, `GPA`, `CGPA`, `
 --
 
 CREATE TABLE `takes` (
-  `s_id` int(8) NOT NULL,
-  `course_code` varchar(20) DEFAULT NULL,
-  `group_id` int(5) DEFAULT NULL
+  `ref` int(5) NOT NULL,
+  `s_id` int(8) DEFAULT NULL,
+  `course_code` varchar(255) DEFAULT NULL,
+  `course_name` varchar(255) DEFAULT NULL,
+  `group_id` int(5) DEFAULT NULL,
+  `isTaken` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transcript`
+--
+
+CREATE TABLE `transcript` (
+  `ref` int(5) NOT NULL,
+  `s_id` int(20) DEFAULT NULL,
+  `course_code_t` varchar(255) DEFAULT NULL,
+  `grade` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `takes`
+-- Dumping data for table `transcript`
 --
 
-INSERT INTO `takes` (`s_id`, `course_code`, `group_id`) VALUES
-(17700283, 'CMPE 344', 2);
+INSERT INTO `transcript` (`ref`, `s_id`, `course_code_t`, `grade`) VALUES
+(1, 17700283, 'MATH151', 'B'),
+(3, 17700283, 'CMPE107', 'A'),
+(5, 17700283, 'ENGL191', 'B'),
+(7, 17700283, 'MATH163', 'B'),
+(8, 17700283, 'PHYS101', 'A'),
+(11, 17700283, 'CMPE112', 'F'),
+(12, 17700283, 'MATH152', 'A'),
+(13, 17700283, 'CMPE100', 'A'),
+(14, 17700283, 'PHYS102', 'W'),
+(15, 17700283, 'ENGL192', 'B');
 
 -- --------------------------------------------------------
 
@@ -475,22 +541,36 @@ CREATE TABLE `users` (
   `country` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
-  `faculty` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `program` varchar(255) NOT NULL
+  `faculty_id` varchar(255) NOT NULL,
+  `department_id` varchar(255) NOT NULL,
+  `program_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `name`, `surname`, `password`, `phone_number`, `country`, `email`, `role`, `faculty`, `department`, `program`) VALUES
-(1, 17700283, 'Amina', 'Ait', 1234, 533874573, 'Morocco', 'amina@email.com', 'Student', 'Engineering', 'Computer Engineering', 'Computer Engineering (English)'),
-(2, 17450019, 'Mehmet', 'Tacyildiz', 1234, 0, '', '', '', '', '', ''),
-(3, 16000070, 'Berkan', 'Ergil', NULL, 0, '', '', '', '', '', ''),
-(4, 23456789, 'mehmetb', '', 1234, 0, '', '', '', '', '', ''),
+INSERT INTO `users` (`id`, `user_id`, `name`, `surname`, `password`, `phone_number`, `country`, `email`, `role`, `faculty_id`, `department_id`, `program_id`) VALUES
+(1, 17700283, 'Amina', 'Ait', 1234, 533874573, 'Morocco', 'amina@email.com', 'student', '2', '6', '12'),
+(2, 17450019, 'Mehmet', 'Tacyildiz', 1234, 0, '', '', 'student', '2', '6', '12'),
+(3, 16000070, 'Berkan', 'Ergil', NULL, 0, '', '', 'student', '2', '6', '12'),
+(4, 23456789, 'Sample', 'Advisor', 1234, 0, '', '', 'advisor', '2', '6', '12'),
 (5, 52345678, 'Admin', 'McAd', 1234, 2147483647, 'kktc', 'admin@email.com', 'A', '-', '-', '-'),
-(6, 41235678, 'Vice ', 'Dean', 1234, 533909090, 'Cyprus', 'example1@email.com', 'Vice Dean', 'CMPE', 'Engineering', 'Engineering');
+(6, 41235678, 'Vice ', 'Dean', 1234, 533909090, 'Cyprus', 'example1@email.com', 'Vice Dean', 'CMPE', 'Engineering', 'Engineering'),
+(8, 30000000, 'Vice', 'Chair', 1234, 533533535, 'KKTC', 'vicechair@email.com', 'Vice Chair', '2', '6', '12'),
+(60, 10000060, 'Berkan', 'Ergil', 123, 90, 'Turkey', 'berkan@gmail.com', '', '0', '0', '0'),
+(71, 30000071, 'Mehmet ', 'Tacyildiz', 123, 90, 'Turkey', 'memo@gmail.com', 'vice chair', '2', '5', '0'),
+(78, 10000078, 'Berkan', 'Ergil', 123, 90, 'Turkey', 'berkan@gmail.com', 'student', '2', '6', '12'),
+(89, 10000084, 'Hasan', 'Furun', 123, 90, 'Turkey', 'hasan@gmail.com', 'student', '2', '6', '12'),
+(90, 20000090, 'Ferman', 'Kilic', 123, 90, 'Turkey', 'ferman@gmail.com', 'advisor', '2', '6', '12'),
+(91, 10000091, 'Hatice', 'Canatan', 123, 90, 'Turkey', 'hatice@gmail.com', 'student', '2', '6', '12'),
+(92, 10000092, 'Mahmut', 'Hokka', 123, 90, 'Turkey', 'mahmut@gmail.com', 'student', '2', '5', '8'),
+(93, 10000093, 'Fazil', 'Kisakurek', 123, 90, 'Turkey', 'fazil@gmail.com', 'student', '2', '5', '7'),
+(94, 10000094, 'Kezban', 'Embesilo', 123, 90, 'Turkey', 'kezban@gmail.com', 'student', '9', '38', '79'),
+(96, 30000096, 'Haluk', 'Bilginer', 123, 90, 'Turkey', 'haluk@gmail.com', 'vice chair', '2', '6', '0'),
+(98, 20000097, 'Sebnem', 'Ferah', 123, 90, 'Turkey', 'sebnem@gmail.com', 'advisor', '2', '6', '12'),
+(99, 20000099, 'Tansu', 'Ciller', 123, 90, 'Turkey', 'tansu@gmail.com', 'advisor', '2', '5', '8'),
+(100, 17700284, 'Submitted', 'Student', 1234, 99999999, 'Turkey', 'email@email.com', 'student', '2', '6', '12');
 
 -- --------------------------------------------------------
 
@@ -508,7 +588,9 @@ CREATE TABLE `vice_chairs` (
 --
 
 INSERT INTO `vice_chairs` (`id`, `user_id`) VALUES
-(1, 30000052);
+(1, 30000052),
+(7, 30000096),
+(8, 30000071);
 
 -- --------------------------------------------------------
 
@@ -557,7 +639,17 @@ ALTER TABLE `advisors`
 ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`,`group_id`),
   ADD KEY `course_code` (`course_code`),
-  ADD KEY `group_id` (`group_id`);
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `group_id_2` (`group_id`),
+  ADD KEY `course_name` (`course_name`);
+
+--
+-- Indexes for table `course_group`
+--
+ALTER TABLE `course_group`
+  ADD PRIMARY KEY (`ref`),
+  ADD KEY `course_code` (`course_code`),
+  ADD KEY `i_id` (`i_id`);
 
 --
 -- Indexes for table `departments`
@@ -570,20 +662,6 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `faculties`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `groupst`
---
-ALTER TABLE `groupst`
-  ADD PRIMARY KEY (`ref`),
-  ADD KEY `group_id` (`group_id`),
-  ADD KEY `course_code` (`course_code`);
-
---
--- Indexes for table `group_schedule`
---
-ALTER TABLE `group_schedule`
-  ADD PRIMARY KEY (`schedule_id`);
 
 --
 -- Indexes for table `instructor`
@@ -599,6 +677,12 @@ ALTER TABLE `programs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`s_id`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -608,9 +692,19 @@ ALTER TABLE `student`
 -- Indexes for table `takes`
 --
 ALTER TABLE `takes`
-  ADD PRIMARY KEY (`s_id`),
+  ADD PRIMARY KEY (`ref`),
+  ADD KEY `s_id` (`s_id`),
   ADD KEY `course_code` (`course_code`),
+  ADD KEY `course_name` (`course_name`),
   ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `transcript`
+--
+ALTER TABLE `transcript`
+  ADD PRIMARY KEY (`ref`),
+  ADD KEY `s_id` (`s_id`),
+  ADD KEY `course_code` (`course_code_t`);
 
 --
 -- Indexes for table `users`
@@ -652,13 +746,19 @@ ALTER TABLE `advises`
 -- AUTO_INCREMENT for table `advisors`
 --
 ALTER TABLE `advisors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25714;
+  MODIFY `course_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25721;
+
+--
+-- AUTO_INCREMENT for table `course_group`
+--
+ALTER TABLE `course_group`
+  MODIFY `ref` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -671,18 +771,6 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `faculties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `groupst`
---
-ALTER TABLE `groupst`
-  MODIFY `ref` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `group_schedule`
---
-ALTER TABLE `group_schedule`
-  MODIFY `schedule_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `instructor`
@@ -700,25 +788,31 @@ ALTER TABLE `programs`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `s_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17700284;
+  MODIFY `s_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17700285;
 
 --
 -- AUTO_INCREMENT for table `takes`
 --
 ALTER TABLE `takes`
-  MODIFY `s_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17700284;
+  MODIFY `ref` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+
+--
+-- AUTO_INCREMENT for table `transcript`
+--
+ALTER TABLE `transcript`
+  MODIFY `ref` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `vice_chairs`
 --
 ALTER TABLE `vice_chairs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `vice_deans`
@@ -738,19 +832,33 @@ ALTER TABLE `advises`
   ADD CONSTRAINT `advises_ibfk_2` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`);
 
 --
--- Constraints for table `groupst`
+-- Constraints for table `course_group`
 --
-ALTER TABLE `groupst`
-  ADD CONSTRAINT `groupst_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `course` (`group_id`),
-  ADD CONSTRAINT `groupst_ibfk_2` FOREIGN KEY (`course_code`) REFERENCES `course` (`course_code`);
+ALTER TABLE `course_group`
+  ADD CONSTRAINT `course_group_ibfk_1` FOREIGN KEY (`course_code`) REFERENCES `course` (`course_code`),
+  ADD CONSTRAINT `course_group_ibfk_2` FOREIGN KEY (`i_id`) REFERENCES `instructor` (`i_id`);
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`);
 
 --
 -- Constraints for table `takes`
 --
 ALTER TABLE `takes`
   ADD CONSTRAINT `takes_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`),
-  ADD CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`course_code`) REFERENCES `groupst` (`course_code`),
-  ADD CONSTRAINT `takes_ibfk_3` FOREIGN KEY (`group_id`) REFERENCES `groupst` (`group_id`);
+  ADD CONSTRAINT `takes_ibfk_2` FOREIGN KEY (`course_code`) REFERENCES `course` (`course_code`),
+  ADD CONSTRAINT `takes_ibfk_3` FOREIGN KEY (`course_name`) REFERENCES `course` (`course_name`),
+  ADD CONSTRAINT `takes_ibfk_4` FOREIGN KEY (`group_id`) REFERENCES `course` (`group_id`);
+
+--
+-- Constraints for table `transcript`
+--
+ALTER TABLE `transcript`
+  ADD CONSTRAINT `transcript_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `student` (`s_id`),
+  ADD CONSTRAINT `transcript_ibfk_2` FOREIGN KEY (`course_code_t`) REFERENCES `course` (`course_code`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

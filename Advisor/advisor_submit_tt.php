@@ -879,218 +879,219 @@ color:red;
   <?php $loopSelected++;}?>
 
 
+	<input type="hidden" id="default_p" name="default_p" value="<?php echo $default_p;?>" >
+	<input type="hidden" id="default_c" name="default_c" value="<?php echo $default_c;?>" >
+	<input type="hidden" id="default_cc" name="default_cc" value="<?php echo $default_cc;?>" >
+	<input type="hidden" id="count" name="count" value="<?php echo $takenNum;?>" >
+	<input type="hidden" id="student_identifier" name="student_identifier" value="<?php echo $user_id;?>" >
 
-  <input type="hidden" id="default_p" name="default_p" value="<?php echo $default_p;?>" >
-  <input type="hidden" id="default_c" name="default_c" value="<?php echo $default_c;?>" >
-  <input type="hidden" id="default_cc" name="default_cc" value="<?php echo $default_cc;?>" >
-  <input type="hidden" id="student_identifier" name="student_identifier" value="<?php echo $user_id;?>" >
-  </form>
+	</form>
 
-  </body>
-
-
-
-  <script>
-	//declaring global variables
-	console.log("inside script");
-	var rIndex, cIndex, td, split_p, split_c, slot, table_index, output, matched, c, r, col_id, row_id, mid, res_arr, displayed, display_btn, select_btn, drop_btn;
-	var slash="/";
-	//retrieve main timetable by ID
-	var table = document.getElementById("timetable");
-  var s_id=document.getElementById('student_identifier').value;
-  console.log("this is student: "+s_id);
-	//retrieve periods, classroom, course_code of schedule table
-	var default_p=document.getElementById('default_p').value;
-	var default_c=document.getElementById('default_c').value;
-	var default_cc=document.getElementById('default_cc').value;
+	</body>
 
 
-	console.log("this that variable i'm looking for: "+default_c);
+		<script>
+		//declaring global variables
+		console.log("inside script");
+		var rIndex, cIndex, td, split_p, split_c, slot, table_index, output, matched, c, r, col_id, row_id, mid, res_arr, displayed, display_btn, select_btn, drop_btn;
+		var slash="/";
+		//retrieve main timetable by ID
+		var table = document.getElementById("timetable");
+		var s_id=document.getElementById('student_identifier').value;
 
-	//display database values
-	displayDefaultSelectedCourses();
-	displayDefaultTimetable();
 
-	function displayDefaultSelectedCourses(){
-			//number of iterations equals number of courses that have been selected
-			var cnt = document.getElementById('count').value;
-			for(var i=0; i<parseInt(cnt); i++){
-						var cc_id=("cc"+i).toString();
-						var cn_id=("cn"+i).toString();
-						var g_id=("g"+i).toString();
+		//retrieve periods, classroom, course_code of schedule table
+		var default_p=document.getElementById('default_p').value;
+		var default_c=document.getElementById('default_c').value;
+		var default_cc=document.getElementById('default_cc').value;
 
-						var taken_cc = document.getElementById(cc_id).value;
-						var taken_cn = document.getElementById(cn_id).value;
-						var taken_g = document.getElementById(g_id).value;
-						console.log("I'm in");
-						//append each selected course to bottom table
-						var string='<tr id='+i+'>';
-						string+='<td align="center">'+taken_g+'</td>';
-						string+='<td align="center">'+taken_cc+'</td>';
-						string+='<td>'+taken_cn+'</td>';
-						string+='<td><button type="button" class="dropCourse btn btn-primary btn-sm" data-grp="'+taken_g+'" data-cc="'+taken_cc+'" data-cn="'+taken_cn+'" data-id='+i+' id="drop_btn'+i+'"> Drop Course</button></td></tr>';
-						$("#tbody").prepend(string);
-						}
+		console.log("this that variable i'm looking for: "+default_c);
+
+		//display database values
+		displayDefaultSelectedCourses();
+		if(default_cc){
+		displayDefaultTimetable();
 	}
 
-  $('.submitButton').click(function(){
-    $.ajax({
-			type: 'POST',
-			url: 'submit_timetable.php',
-			data: {s_id: s_id},
-			success: function(data){
-				console.log("in ajax: ");
-      }
-			});
-		});
+		function displayDefaultSelectedCourses(){
+				//number of iterations equals number of courses that have been selected
+				var cnt = document.getElementById('count').value;
+				for(var i=0; i<parseInt(cnt); i++){
+							var cc_id=("cc"+i).toString();
+							var cn_id=("cn"+i).toString();
+							var g_id=("g"+i).toString();
 
+							var taken_cc = document.getElementById(cc_id).value;
+							var taken_cn = document.getElementById(cn_id).value;
+							var taken_g = document.getElementById(g_id).value;
+							console.log("I'm in");
+							//append each selected course to bottom table
+							var string='<tr id='+i+'>';
+							string+='<td align="center">'+taken_g+'</td>';
+							string+='<td align="center">'+taken_cc+'</td>';
+							string+='<td>'+taken_cn+'</td>';
+							string+='<td><button type="button" class="dropCourse btn btn-primary btn-sm" data-grp="'+taken_g+'" data-cc="'+taken_cc+'" data-cn="'+taken_cn+'" data-id='+i+' id="drop_btn'+i+'"> Drop Course</button></td></tr>';
+							$("#tbody").prepend(string);
+							}
+		}
 
-	$('.dropCourse').click(function (){
-		var btn_id=$(this).data("id"); //$id of button
-		var group_id=$(this).data("grp");
-		var course_code=$(this).data("cc");
-		var course_name=$(this).data("cn");
-		drop_btn=document.getElementById("drop_btn"+btn_id);
-	//	var group_number=$(this).data("id");
-		//var group_id=document.getElementById('group_num'+btn_id).value;
-		//$("#tbody").prepend(string);
+		$('.dropCourse').click(function (){
+			var btn_id=$(this).data("id"); //$id of button
+			var group_id=$(this).data("grp");
+			var course_code=$(this).data("cc");
+			var course_name=$(this).data("cn");
+			drop_btn=document.getElementById("drop_btn"+btn_id);
+		//	var group_number=$(this).data("id");
+			//var group_id=document.getElementById('group_num'+btn_id).value;
+			//$("#tbody").prepend(string);
 
-		$.ajax({
-			type: 'POST',
-			url: 'drop_course.php',
-			data: {group_id: group_id,
-						course_code: course_code,
-						course_name: course_name,
-						default_p: default_p,
-						default_c: default_c,
-						default_cc: default_cc},
-			success: function(data){
-				console.log("in ajax: "+group_id);
-				// if(group_id){
-				// 	var html='<tr>';
-				// 	html+='<td align="center">'+group_id+'</td>';
-				// 	html+='<td align="center">'+course_code+'</td>';
-				// 	html+='<td>'+course_name+'</td>';
-				// 	html+='<td><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td></tr>';
-				// 	$("#tbody").prepend(html);
-				// }
-			}
-		});
-
-		$("#tbody tr#"+btn_id).remove();
-
-		location.reload();
-
-
-	});
-
-
-
-	function display(str1, str2, course_code){
-		split_p=parse(str1);
-		split_c=parse(str2);
-		split_cc=parse(course_code);
-
-
-
-		//for each element of period
-			for(var i=0; i<split_p.length; i++){
-					//convert period number into index of 2D Matrix that represents timetable
-					slot = generateIndices(split_p[i]);
-					//match generated index with timetable index, finding correct day and lecture hour
-					table_index = match(slot);
-					//insert course code and period into appropriate day and lecture hour (matching table cell)
-					displayed=insert(table_index, split_cc[i], split_c[i]);
+			$.ajax({
+				type: 'POST',
+				url: 'drop_course.php',
+				data: {group_id: group_id,
+							course_code: course_code,
+							course_name: course_name,
+							default_p: default_p,
+							default_c: default_c,
+							default_cc: default_cc},
+				success: function(data){
+					console.log("in ajax: "+group_id);
+					// if(group_id){
+					// 	var html='<tr>';
+					// 	html+='<td align="center">'+group_id+'</td>';
+					// 	html+='<td align="center">'+course_code+'</td>';
+					// 	html+='<td>'+course_name+'</td>';
+					// 	html+='<td><button type="button" class="btn btn-primary btn-sm" >Drop Course</button></td></tr>';
+					// 	$("#tbody").prepend(html);
+					// }
 				}
+			});
+
+			$("#tbody tr#"+btn_id).remove();
+
+			location.reload();
+
+
+		});
+
+		$('.submitButton').click(function(){
+		    $.ajax({
+					type: 'POST',
+					url: 'submit_timetable.php',
+					data: {s_id: s_id},
+					success: function(data){
+						console.log("in ajax: ");
+		      }
+					});
+				});
+
+		function display(str1, str2, course_code){
+			split_p=parse(str1);
+			split_c=parse(str2);
+			split_cc=parse(course_code);
+
+
+
+			//for each element of period
+				for(var i=0; i<split_p.length; i++){
+						//convert period number into index of 2D Matrix that represents timetable
+						slot = generateIndices(split_p[i]);
+						//match generated index with timetable index, finding correct day and lecture hour
+						table_index = match(slot);
+						//insert course code and period into appropriate day and lecture hour (matching table cell)
+						displayed=insert(table_index, split_cc[i], split_c[i]);
+					}
+		}
+
+
+			function displayDefaultTimetable(){
+
+				display(default_p.toString(), default_c.toString(), default_cc.toString());
+
 	}
 
 
-		function displayDefaultTimetable(){
-			display(default_p.toString(), default_c.toString(), default_cc.toString());
-	}
+			function parse(s){
+				res_arr=s.split(",");
+				return res_arr;
+		}
 
 
-		function parse(s){
-			res_arr=s.split(",");
-			return res_arr;
-	}
-
-
-			//algorithm to calculate row index and column index, returned as a tuple
-		function generateIndices(p){
 				//algorithm to calculate row index and column index, returned as a tuple
-				c=p%10;
-				col_id=c+1;
-				r=parseInt(p/10);
-				row_id=r+1;
-				return [row_id, col_id];
-	}
+			function generateIndices(p){
+					//algorithm to calculate row index and column index, returned as a tuple
+					c=p%10;
+					col_id=c+1;
+					r=parseInt(p/10);
+					row_id=r+1;
+					return [row_id, col_id];
+		}
 
 
 
-		function duplicate(arr){
-			var current = null;
-			var count=0;
-			var clashPeriod="";
-			var conflict;
-			for (var i=0; i < arr.length; i++) {
-	        if (arr[i] != current) {
-	            if (count>1) {
-									clashPeriod+=current+" ";
-	            }
-	            current = arr[i];
-	            count = 1;
-	        }
-					else {
-	            count++;
-	        }
-	  	}
-			return clashPeriod;
-	}
+			function duplicate(arr){
+				var current = null;
+				var count=0;
+				var clashPeriod="";
+				var conflict;
+				for (var i=0; i < arr.length; i++) {
+		        if (arr[i] != current) {
+		            if (count>1) {
+										clashPeriod+=current+" ";
+		            }
+		            current = arr[i];
+		            count = 1;
+		        }
+						else {
+		            count++;
+		        }
+		  	}
+				return clashPeriod;
+		}
 
 
-		function match(timeSlot){
-					//timeSlot[0] is the row_id, timeSlot[1] is the col_id
-					console.log("inside match");
-					var matchedIndex;
-					matched=0;
-					if(!matched){
-					for(var i=0; i<table.rows.length; i++){
-						//row cells td
-						for(var j=0; j<table.rows[i].cells.length; j++){
-							// td is the box
-							td = table.rows[i].cells[j];
-							if (td.parentElement.rowIndex==timeSlot[0] && td.cellIndex==timeSlot[1]){
-								matched=1;
-								//store the conditions that matched as this is the result needed
-								rIndex=td.parentElement.rowIndex;
-								cIndex=td.cellIndex;
-								matchedIndex = [rIndex, cIndex];
-								break;
+			function match(timeSlot){
+						//timeSlot[0] is the row_id, timeSlot[1] is the col_id
+						console.log("inside match");
+						var matchedIndex;
+						matched=0;
+						if(!matched){
+						for(var i=0; i<table.rows.length; i++){
+							//row cells td
+							for(var j=0; j<table.rows[i].cells.length; j++){
+								// td is the box
+								td = table.rows[i].cells[j];
+								if (td.parentElement.rowIndex==timeSlot[0] && td.cellIndex==timeSlot[1]){
+									matched=1;
+									//store the conditions that matched as this is the result needed
+									rIndex=td.parentElement.rowIndex;
+									cIndex=td.cellIndex;
+									matchedIndex = [rIndex, cIndex];
+									break;
+								}
 							}
 						}
+						console.log("this is my row: "+rIndex+" and this is my column: "+cIndex);
+						return matchedIndex;
 					}
-					console.log("this is my row: "+rIndex+" and this is my column: "+cIndex);
-					return matchedIndex;
-				}
-	}
+		}
 
 
-		function insert(i, cc, c){
-				//i is index of matching table index generated from match function
-				console.log("inside insert and these are my indices: ");
-				output=table.rows[i[0]].cells[i[1]];
-				var htmlstring = output.innerHTML;
-
+			function insert(i, cc, c){
+					//i is index of matching table index generated from match function
+					console.log("inside insert and these are my indices: ");
+					output=table.rows[i[0]].cells[i[1]];
+					//var htmlstring = output.innerHTML;
+					output.innerHTML="";
 					output.innerHTML+=
-								"<a class='text-primary pt-4 '><br>"+cc+slash+c+"</a>";
+									"<a class='text-primary pt-4 '><br>"+cc+slash+c+"</a>";
 
-				return output;
-	}
-
-
-
-</script>
+					return output;
+		}
 
 
-</html>
+
+	</script>
+
+	</div>
+	</html>
